@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Photos stage Scientec – Christopher Petit</title>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Segoe UI',system-ui,sans-serif;background:#0f172a;color:#f1f5f9;min-height:100vh}
+    a{text-decoration:none;color:inherit}
+    :root{--accent:#2563eb;--border:#1e293b;--r:12px}
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;height:60px;padding:0 2rem;
+      background:rgba(15,23,42,.95);backdrop-filter:blur(12px);
+      border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+    .nav-brand{font-weight:800;color:#60a5fa;font-size:.95rem}
+    .nav-links{display:flex;gap:1.5rem;list-style:none}
+    .nav-links a{font-size:.85rem;font-weight:500;color:#94a3b8;transition:color .2s}
+    .nav-links a:hover,.nav-links a.active{color:#60a5fa;font-weight:700}
+    .nav-toggle{display:none;flex-direction:column;gap:5px;cursor:pointer}
+    .nav-toggle span{display:block;width:22px;height:2px;background:#94a3b8;border-radius:2px}
+    .page-hero{padding:5.5rem 2rem 2rem;background:linear-gradient(135deg,#0c1f3a 0%,#0f172a 100%);border-bottom:1px solid var(--border)}
+    .c{max-width:1100px;margin:0 auto}
+    .back{display:inline-flex;align-items:center;gap:.4rem;font-size:.85rem;color:#60a5fa;font-weight:600;margin-bottom:.8rem}.back:hover{text-decoration:underline}
+    .sl{font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#3b82f6;margin-bottom:.3rem}
+    .pt{font-size:2rem;font-weight:900;color:#f1f5f9;letter-spacing:-.5px}
+    .pt-sub{color:#64748b;margin-top:.4rem;font-size:.95rem}
+    .content{padding:2.5rem 2rem 4rem}
+    .section-label{font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#3b82f6;margin-bottom:.8rem;margin-top:2rem}
+    .section-label:first-child{margin-top:0}
+    /* Grid photos */
+    .gallery-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem;margin-bottom:1rem}
+    .gallery-item{background:#1e293b;border-radius:var(--r);overflow:hidden;border:1px solid #334155;cursor:pointer;transition:.25s}
+    .gallery-item:hover{transform:translateY(-4px);border-color:#3b82f6;box-shadow:0 0 0 1px #3b82f6,0 8px 30px rgba(37,99,235,.3)}
+    .gallery-img{width:100%;height:220px;object-fit:cover;display:block;transition:.3s}
+    .gallery-item:hover .gallery-img{transform:scale(1.03)}
+    .gallery-caption{padding:1rem 1.2rem}
+    .caption-title{font-weight:700;font-size:.95rem;color:#f1f5f9;margin-bottom:.25rem}
+    .caption-desc{font-size:.82rem;color:#64748b}
+    /* Lightbox */
+    .lightbox{display:none;position:fixed;inset:0;z-index:999;background:rgba(0,0,0,.93);align-items:center;justify-content:center;padding:1rem}
+    .lightbox.open{display:flex}
+    .lb-content{position:relative;max-width:90vw;max-height:90vh;text-align:center}
+    .lb-img{max-width:90vw;max-height:82vh;border-radius:8px;object-fit:contain;box-shadow:0 0 60px rgba(0,0,0,.8)}
+    .lb-close{position:absolute;top:-16px;right:-16px;width:36px;height:36px;background:#334155;border:none;border-radius:50%;color:#f1f5f9;font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.2s;z-index:1000}
+    .lb-close:hover{background:#ef4444}
+    .lb-caption{text-align:center;margin-top:.8rem;font-size:.85rem;color:#94a3b8}
+    .lb-nav{display:flex;gap:1rem;justify-content:center;margin-top:.8rem}
+    .lb-btn{background:#1e293b;border:1px solid #334155;color:#f1f5f9;padding:.4rem 1rem;border-radius:8px;cursor:pointer;font-size:.88rem;transition:.2s}
+    .lb-btn:hover{background:#334155;border-color:#3b82f6}
+    footer{background:#080f1a;color:#475569;text-align:center;padding:1.5rem 2rem;font-size:.8rem}
+    footer span{color:#94a3b8;font-weight:600}
+    .fi{opacity:0;transform:translateY(18px);transition:opacity .6s,transform .6s}.fi.v{opacity:1;transform:none}
+    @media(max-width:600px){.gallery-grid{grid-template-columns:1fr}.nav-links{display:none;flex-direction:column;position:absolute;top:60px;left:0;right:0;background:#0f172a;padding:1rem 2rem;border-bottom:1px solid var(--border);gap:1rem}.nav-links.open{display:flex}.nav-toggle{display:flex}}
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-brand">Christopher Petit</div>
+  <ul class="nav-links" id="nl">
+    <li><a href="index.html">Accueil</a></li>
+    <li><a href="apropos.html">À propos</a></li>
+    <li><a href="experience.html" class="active">Expériences</a></li>
+    <li><a href="projets.html">Projets</a></li>
+    <li><a href="competences.html">Compétences</a></li>
+    <li><a href="interets.html">Intérêts</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="cv.html">CV</a></li>
+  </ul>
+  <div class="nav-toggle" onclick="document.getElementById('nl').classList.toggle('open')"><span></span><span></span><span></span></div>
+</nav>
+
+<div class="page-hero">
+  <div class="c">
+    <a href="experience.html" class="back">← Retour aux expériences</a>
+    <p class="sl">Stage · Mars–Juin 2026 · 14 semaines</p>
+    <h1 class="pt">Photos du stage Scientec</h1>
+    <p class="pt-sub">Scientec · Les Ulis (91) · Optique & Instrumentation scientifique</p>
+  </div>
+</div>
+
+<section class="content">
+  <div class="c">
+
+    <p class="section-label fi">Réception & logistique SAV</p>
+    <div class="gallery-grid">
+      <div class="gallery-item fi" onclick="openLb(0)">
+        <img class="gallery-img" src="photos/sc_kit_jeti.jpg" alt="Kit JETI Specbos à la réception" style="object-position:center center"/>
+        <div class="gallery-caption">
+          <div class="caption-title">Kit JETI Specbos à la réception</div>
+          <div class="caption-desc">Ouverture du colis APC 8375 – vérification du contenu (valise, câble USB, accessoires) et inventaire à l'arrivée</div>
+        </div>
+      </div>
+      <div class="gallery-item fi" onclick="openLb(1)">
+        <img class="gallery-img" src="photos/sc_banc_optique.jpg" alt="Banc optique en salle noire" style="object-position:center center"/>
+        <div class="gallery-caption">
+          <div class="caption-title">Vue d'ensemble du banc optique</div>
+          <div class="caption-desc">Salle noire dédiée aux mesures et calibrages photométriques, avec colonne verticale, source OL-455 et PC de mesure</div>
+        </div>
+      </div>
+    </div>
+
+    <p class="section-label fi">Appareils – Spectroradiométrie</p>
+    <div class="gallery-grid">
+      <div class="gallery-item fi" onclick="openLb(2)">
+        <img class="gallery-img" src="photos/sc_jeti_laser.jpg" alt="Spectroradiomètre JETI Specbos 1201" style="object-position:center center"/>
+        <div class="gallery-caption">
+          <div class="caption-title">Spectroradiomètre JETI Specbos 1201</div>
+          <div class="caption-desc">Appareil pointé sur la source lumineuse – viseur laser rouge permet d'aligner précisément la zone de mesure</div>
+        </div>
+      </div>
+      <div class="gallery-item fi" onclick="openLb(3)">
+        <img class="gallery-img" src="photos/sc_spectre_couleur.jpg" alt="Spectre de radiance en mode coloré" style="object-position:center top"/>
+        <div class="gallery-caption">
+          <div class="caption-title">Spectre de radiance – mode coloré (Lival)</div>
+          <div class="caption-desc">Mesure de la radiance spectrale (380–780 nm) d'une source halogène via le logiciel Lival, après calibrage</div>
+        </div>
+      </div>
+      <div class="gallery-item fi" onclick="openLb(4)">
+        <img class="gallery-img" src="photos/sc_spectre_mercure.jpg" alt="Spectre d'une lampe à vapeur de mercure" style="object-position:center top"/>
+        <div class="gallery-caption">
+          <div class="caption-title">Spectre d'une lampe à vapeur de mercure</div>
+          <div class="caption-desc">Raies caractéristiques du mercure (436, 546, 579 nm…) utilisées pour valider la justesse de l'étalonnage spectral</div>
+        </div>
+      </div>
+    </div>
+
+    <p class="section-label fi">Calibrage & Profilométrie</p>
+    <div class="gallery-grid">
+      <div class="gallery-item fi" onclick="openLb(5)">
+        <img class="gallery-img" src="photos/sc_radiance_irradiance.png" alt="Schéma Radiance vs Irradiance" style="object-position:center center"/>
+        <div class="gallery-caption">
+          <div class="caption-title">Radiance vs Irradiance</div>
+          <div class="caption-desc">Schéma explicatif des deux grandeurs mesurées : l'éclairement (lux, CL-200A) dépend de la distance, la luminance (cd/m², Specbos 1211) en est indépendante</div>
+        </div>
+      </div>
+      <div class="gallery-item fi" onclick="openLb(6)">
+        <img class="gallery-img" src="photos/sc_d600_photo.jpg" alt="Profilomètre Alpha-Step D-600" style="object-position:center center"/>
+        <div class="gallery-caption">
+          <div class="caption-title">Profilomètre Alpha-Step D-600 (KLA Instruments)</div>
+          <div class="caption-desc">Appareil utilisé pour mesurer les profils de surface par contact mécanique – résolution verticale à l'échelle du nanomètre</div>
+        </div>
+      </div>
+      <div class="gallery-item fi" onclick="openLb(7)">
+        <img class="gallery-img" src="photos/sc_d600_principe.png" alt="Principe de fonctionnement du profilomètre D-600" style="object-position:center center"/>
+        <div class="gallery-caption">
+          <div class="caption-title">Principe de fonctionnement – Profilomètre D-600</div>
+          <div class="caption-desc">La pointe diamant parcourt l'échantillon à force constante, le capteur mesure le déplacement vertical et le logiciel reconstruit le profil de surface</div>
+        </div>
+      </div>
+      <div class="gallery-item fi" onclick="openLb(8)">
+        <img class="gallery-img" src="photos/sc_profil_3d.jpg" alt="Profil 3D de surface" style="object-position:center center"/>
+        <div class="gallery-caption">
+          <div class="caption-title">Profil de surface en 3D</div>
+          <div class="caption-desc">Reconstruction 3D du profil d'une marche – hauteur mesurée à 7,9947 µm</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lb" onclick="if(event.target===this)closeLb()">
+  <div class="lb-content">
+    <button class="lb-close" onclick="closeLb()">✕</button>
+    <img class="lb-img" id="lb-img" src="" alt=""/>
+    <div class="lb-caption" id="lb-cap"></div>
+    <div class="lb-nav">
+      <button class="lb-btn" onclick="moveLb(-1)">← Précédent</button>
+      <button class="lb-btn" onclick="moveLb(1)">Suivant →</button>
+    </div>
+  </div>
+</div>
+
+<footer><p>© 2026 <span>Christopher Petit</span> · Portfolio BUT GEII</p></footer>
+<script>
+  const images=[
+    {src:'photos/sc_kit_jeti.jpg',cap:'Kit JETI Specbos à la réception – inventaire du colis APC 8375'},
+    {src:'photos/sc_banc_optique.jpg',cap:'Vue d\'ensemble du banc optique en salle noire'},
+    {src:'photos/sc_jeti_laser.jpg',cap:'Spectroradiomètre JETI Specbos 1201 – visée laser sur la source'},
+    {src:'photos/sc_spectre_couleur.jpg',cap:'Spectre de radiance (380–780 nm) en mode coloré – logiciel Lival'},
+    {src:'photos/sc_spectre_mercure.jpg',cap:'Spectre d\'une lampe à vapeur de mercure – raies d\'étalonnage spectral'},
+    {src:'photos/sc_radiance_irradiance.png',cap:'Radiance vs Irradiance – éclairement (lux, CL-200A) vs luminance (cd/m², Specbos 1211)'},
+    {src:'photos/sc_d600_photo.jpg',cap:'Profilomètre Alpha-Step D-600 (KLA Instruments)'},
+    {src:'photos/sc_d600_principe.png',cap:'Principe de fonctionnement du profilomètre D-600 – pointe diamant, platine motorisée, profil de surface'},
+    {src:'photos/sc_profil_3d.jpg',cap:'Profil de surface en 3D – hauteur de marche mesurée à 7,9947 µm'},
+  ];
+  let cur=0;
+  function openLb(i){cur=i;document.getElementById('lb-img').src=images[i].src;document.getElementById('lb-cap').textContent=images[i].cap;document.getElementById('lb').classList.add('open')}
+  function closeLb(){document.getElementById('lb').classList.remove('open')}
+  function moveLb(d){cur=(cur+d+images.length)%images.length;openLb(cur)}
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLb();if(e.key==='ArrowRight')moveLb(1);if(e.key==='ArrowLeft')moveLb(-1)});
+  const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('v');obs.unobserve(x.target)}})},{threshold:.1});
+  document.querySelectorAll('.fi').forEach(el=>obs.observe(el));
+</script>
+</body></html>

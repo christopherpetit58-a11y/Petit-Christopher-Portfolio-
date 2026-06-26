@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact – Christopher Petit</title>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
+    body{font-family:'Segoe UI',system-ui,sans-serif;background:#f9fafb;color:#1f2937;line-height:1.6}
+    a{text-decoration:none;color:inherit}
+    :root{--accent:#2563eb;--accent-dark:#1d4ed8;--accent-light:#eff6ff;--surface:#fff;--border:#e5e7eb;--muted:#6b7280;--r:14px;--sh:0 1px 3px rgba(0,0,0,.08),0 4px 16px rgba(0,0,0,.06);--sh2:0 4px 6px rgba(0,0,0,.07),0 10px 30px rgba(0,0,0,.10)}
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;height:60px;padding:0 2rem;background:rgba(255,255,255,.93);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+    .nav-brand{font-weight:800;color:var(--accent);font-size:.95rem}
+    .nav-links{display:flex;gap:1.5rem;list-style:none}
+    .nav-links a{font-size:.85rem;font-weight:500;color:var(--muted);transition:color .2s}
+    .nav-links a:hover,.nav-links a.active{color:var(--accent);font-weight:700}
+    .nav-toggle{display:none;flex-direction:column;gap:5px;cursor:pointer}
+    .nav-toggle span{display:block;width:22px;height:2px;background:#374151;border-radius:2px}
+    .page-hero{padding:5.5rem 2rem 2.5rem;background:linear-gradient(135deg,#eef2ff 0%,#fff 100%);border-bottom:1px solid var(--border)}
+    .c{max-width:800px;margin:0 auto}
+    .back{display:inline-flex;align-items:center;gap:.4rem;font-size:.85rem;color:var(--accent);font-weight:600;margin-bottom:1rem}.back:hover{text-decoration:underline}
+    .sl{font-size:.78rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:.3rem}
+    .pt{font-size:2.2rem;font-weight:900;color:#111827;letter-spacing:-.5px}
+    .pt-sub{color:var(--muted);margin-top:.5rem;font-size:1rem}
+    .content{padding:3rem 2rem}
+    /* Contact cards grid */
+    .contact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1rem;margin-bottom:2.5rem}
+    .contact-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1.5rem;box-shadow:var(--sh);display:flex;align-items:center;gap:1.2rem;transition:.2s}
+    .contact-card:hover{box-shadow:var(--sh2);border-color:#bfdbfe;transform:translateY(-2px)}
+    .cc-icon{width:50px;height:50px;border-radius:12px;background:var(--accent-light);display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0}
+    .cc-lbl{font-size:.75rem;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.04em;margin-bottom:.15rem}
+    .cc-val{font-size:1rem;font-weight:700;color:#111827;word-break:break-all}
+    .cc-val a{color:var(--accent)}
+    /* CTA section */
+    .cta-box{background:linear-gradient(135deg,#1e40af,#2563eb);border-radius:var(--r);padding:2.5rem;text-align:center;color:#fff;margin-bottom:2rem}
+    .cta-box h2{font-size:1.6rem;font-weight:900;margin-bottom:.5rem}
+    .cta-box p{color:#bfdbfe;margin-bottom:1.5rem;font-size:.95rem}
+    .cta-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+    .btn{display:inline-flex;align-items:center;gap:.4rem;padding:.7rem 1.5rem;border-radius:var(--r);font-size:.9rem;font-weight:700;transition:.2s;cursor:pointer;border:none}
+    .btn-white{background:#fff;color:var(--accent)}.btn-white:hover{background:#eff6ff;transform:translateY(-1px)}
+    .btn-ghost{background:rgba(255,255,255,.15);color:#fff;border:2px solid rgba(255,255,255,.4)}.btn-ghost:hover{background:rgba(255,255,255,.25)}
+    .btn-o{background:transparent;color:var(--accent);border:2px solid var(--accent)}.btn-o:hover{background:var(--accent-light)}
+    /* Disponibilité */
+    .avail{display:inline-flex;align-items:center;gap:.5rem;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:999px;padding:.4rem 1rem;font-size:.85rem;font-weight:600;color:#15803d;margin-top:1.2rem}
+    .dot{width:8px;height:8px;background:#22c55e;border-radius:50%;animation:pulse 2s infinite}
+    @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+    .page-nav{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;margin-top:2rem;padding-top:2rem;border-top:1px solid var(--border)}
+    footer{background:#111827;color:#9ca3af;text-align:center;padding:1.5rem 2rem;font-size:.8rem}
+    footer span{color:#fff;font-weight:600}
+    .fi{opacity:0;transform:translateY(18px);transition:opacity .6s,transform .6s}.fi.v{opacity:1;transform:none}
+    @media(max-width:600px){.nav-links{display:none;flex-direction:column;position:absolute;top:60px;left:0;right:0;background:#fff;padding:1rem 2rem;border-bottom:1px solid var(--border);gap:1rem}.nav-links.open{display:flex}.nav-toggle{display:flex}}
+  </style>
+</head>
+<body>
+<nav>
+  <div class="nav-brand">Christopher Petit</div>
+  <ul class="nav-links" id="nl">
+    <li><a href="index.html">Accueil</a></li>
+    <li><a href="apropos.html">À propos</a></li>
+    <li><a href="experience.html">Expériences</a></li>
+    <li><a href="projets.html">Projets</a></li>
+    <li><a href="competences.html">Compétences</a></li>
+    <li><a href="interets.html">Intérêts</a></li>
+    <li><a href="contact.html" class="active">Contact</a></li>
+    <li><a href="cv.html">CV</a></li>
+  </ul>
+  <div class="nav-toggle" onclick="document.getElementById('nl').classList.toggle('open')"><span></span><span></span><span></span></div>
+</nav>
+
+<div class="page-hero">
+  <div class="c">
+    <a href="index.html" class="back">← Retour à l'accueil</a>
+    <p class="sl">Prenons contact</p>
+    <h1 class="pt">Contact</h1>
+    <p class="pt-sub">Disponible pour toute opportunité d'alternance à partir de septembre 2026.</p>
+    <div class="avail"><span class="dot"></span> Disponible · Alternance sept. 2026</div>
+  </div>
+</div>
+
+<section class="content">
+  <div class="c">
+    <!-- CTA -->
+    <div class="cta-box fi">
+      <h2>Travaillons ensemble</h2>
+      <p>Je suis à la recherche d'une alternance de 2 à 3 ans dans les domaines de l'électronique, des systèmes embarqués ou de l'automatisme industrielle.</p>
+      <div class="cta-btns">
+        <a href="mailto:christopher.petit58@gmail.com" class="btn btn-white">✉️ Envoyer un e-mail</a>
+        <a href="https://linkedin.com/in/christopher-petit-4nb1/" target="_blank" class="btn btn-ghost">🔗 LinkedIn</a>
+      </div>
+    </div>
+
+    <!-- Contact cards -->
+    <div class="contact-grid">
+      <div class="contact-card fi">
+        <div class="cc-icon">📞</div>
+        <div>
+          <div class="cc-lbl">Téléphone</div>
+          <div class="cc-val"><a href="tel:0753786135">07 53 78 61 35</a></div>
+        </div>
+      </div>
+      <div class="contact-card fi">
+        <div class="cc-icon">✉️</div>
+        <div>
+          <div class="cc-lbl">E-mail</div>
+          <div class="cc-val"><a href="mailto:christopher.petit58@gmail.com">christopher.petit58@gmail.com</a></div>
+        </div>
+      </div>
+      <div class="contact-card fi">
+        <div class="cc-icon">🔗</div>
+        <div>
+          <div class="cc-lbl">LinkedIn</div>
+          <div class="cc-val"><a href="https://linkedin.com/in/christopher-petit-4nb1/" target="_blank">christopher-petit-4nb1</a></div>
+        </div>
+      </div>
+      <div class="contact-card fi">
+        <div class="cc-icon">📍</div>
+        <div>
+          <div class="cc-lbl">Localisation</div>
+          <div class="cc-val">Juvisy-sur-Orge (91)</div>
+        </div>
+      </div>
+      <div class="contact-card fi">
+        <div class="cc-icon">🎓</div>
+        <div>
+          <div class="cc-lbl">Formation</div>
+          <div class="cc-val">BUT3 GEII – IUT d'Évry</div>
+        </div>
+      </div>
+      <div class="contact-card fi">
+        <div class="cc-icon">💼</div>
+        <div>
+          <div class="cc-lbl">Disponibilité</div>
+          <div class="cc-val">Alternance 2–3 ans · Sept. 2026</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="page-nav fi">
+      <a href="interets.html" class="btn-o btn" style="font-size:.9rem;font-weight:600;padding:.65rem 1.4rem;border-radius:var(--r);border:2px solid var(--accent);color:var(--accent)">← Intérêts</a>
+      <a href="index.html" class="btn btn-o" style="font-size:.9rem;font-weight:600;padding:.65rem 1.4rem;border-radius:var(--r);border:2px solid var(--accent);color:var(--accent)">🏠 Accueil</a>
+    </div>
+  </div>
+</section>
+
+<footer><p>© 2026 <span>Christopher Petit</span> · Portfolio BUT GEII</p></footer>
+<script>const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('v');obs.unobserve(x.target)}})},{threshold:.08});document.querySelectorAll('.fi').forEach(el=>obs.observe(el));</script>
+</body></html>

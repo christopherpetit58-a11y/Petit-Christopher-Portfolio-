@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CV – Christopher Petit</title>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:'Segoe UI',system-ui,sans-serif;background:#f0f2f5;color:#1f2937;line-height:1.5}
+    a{text-decoration:none;color:inherit}
+    :root{--accent:#2563eb;--accent-dark:#1d4ed8;--accent-light:#eff6ff;--border:#e5e7eb;--muted:#6b7280;--r:14px;--sh:0 2px 8px rgba(0,0,0,.12),0 8px 32px rgba(0,0,0,.1)}
+
+    /* NAV */
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;height:60px;padding:0 2rem;background:rgba(255,255,255,.93);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+    .nav-brand{font-weight:800;color:var(--accent);font-size:.95rem}
+    .nav-links{display:flex;gap:1.5rem;list-style:none}
+    .nav-links a{font-size:.85rem;font-weight:500;color:var(--muted);transition:color .2s}
+    .nav-links a:hover,.nav-links a.active{color:var(--accent);font-weight:700}
+    .nav-toggle{display:none;flex-direction:column;gap:5px;cursor:pointer}
+    .nav-toggle span{display:block;width:22px;height:2px;background:#374151;border-radius:2px}
+
+    /* PAGE HEADER */
+    .page-hero{padding:5.5rem 2rem 2rem;background:linear-gradient(135deg,#eef2ff 0%,#fff 100%);border-bottom:1px solid var(--border)}
+    .hero-inner{max-width:960px;margin:0 auto;display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:1rem}
+    .back{display:inline-flex;align-items:center;gap:.4rem;font-size:.85rem;color:var(--accent);font-weight:600;margin-bottom:.8rem}.back:hover{text-decoration:underline}
+    .sl{font-size:.78rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:.3rem}
+    .pt{font-size:2.2rem;font-weight:900;color:#111827;letter-spacing:-.5px}
+    .print-btn{display:inline-flex;align-items:center;gap:.5rem;background:var(--accent);color:#fff;padding:.65rem 1.4rem;border-radius:var(--r);font-size:.9rem;font-weight:700;cursor:pointer;border:none;transition:.2s;flex-shrink:0}
+    .print-btn:hover{background:var(--accent-dark);transform:translateY(-1px)}
+
+    /* CV WRAPPER */
+    .cv-wrapper{max-width:960px;margin:2.5rem auto;padding:0 2rem 4rem}
+
+    /* CV CARD */
+    .cv-card{background:#fff;border-radius:12px;box-shadow:var(--sh);overflow:hidden;display:grid;grid-template-columns:34% 66%}
+
+    /* ═══ COLONNE GAUCHE (noire) ═══ */
+    .cv-left{background:#111;color:#fff;padding:2rem 1.4rem}
+
+    .cv-photo-wrap{width:150px;height:150px;border-radius:50%;overflow:hidden;margin:0 auto 1.4rem;border:3px solid #333;flex-shrink:0}
+    .cv-photo-wrap img{width:100%;height:100%;object-fit:cover;object-position:center top}
+
+    .cv-name-block{text-align:center;margin-bottom:.8rem}
+    .cv-firstname{font-size:1.65rem;font-weight:700;line-height:1.1;color:#fff}
+    .cv-lastname{font-size:2rem;font-weight:900;line-height:1.1;color:#fff;letter-spacing:-.5px}
+    .cv-age{font-size:.82rem;color:#9ca3af;margin-top:.5rem}
+
+    .cv-divider{border:none;border-top:1px solid #333;margin:1rem 0}
+
+    .cv-contact-block{margin-bottom:.5rem}
+    .cv-contact-line{font-size:.78rem;color:#d1d5db;margin-bottom:.4rem;display:flex;align-items:center;gap:.5rem}
+    .cv-contact-line a{color:#93c5fd}
+    .cv-contact-line a:hover{text-decoration:underline}
+    .cv-contact-bold{font-weight:700;font-size:.82rem;color:#fff;margin-bottom:.6rem}
+
+    /* Sections gauche */
+    .cv-sec-l{margin-top:1.4rem}
+    .cv-sec-l-title{font-size:.82rem;font-weight:900;text-transform:uppercase;letter-spacing:.1em;color:#fff;border-bottom:2px solid #fff;padding-bottom:.3rem;margin-bottom:.8rem}
+    .cv-sub-name{font-size:.78rem;font-weight:700;color:#e5e7eb;margin-top:.7rem;margin-bottom:.25rem}
+    .cv-sub-list{list-style:disc;padding-left:1rem;font-size:.74rem;color:#d1d5db}
+    .cv-sub-list li{margin-bottom:.15rem}
+
+    /* Langues */
+    .lang-item{margin-bottom:.6rem}
+    .lang-top{display:flex;justify-content:space-between;font-size:.75rem;margin-bottom:.2rem;color:#d1d5db}
+    .lang-bar{height:4px;background:#333;border-radius:999px;overflow:hidden}
+    .lang-fill{height:100%;background:#60a5fa;border-radius:999px}
+
+    /* Intérêts */
+    .int-tags{display:flex;flex-wrap:wrap;gap:.3rem;margin-top:.3rem}
+    .int-tag{font-size:.72rem;padding:.2rem .5rem;border-radius:999px;background:#222;color:#d1d5db;border:1px solid #333}
+
+    /* ═══ COLONNE DROITE (blanche) ═══ */
+    .cv-right{background:#fff;padding:2rem 2rem}
+
+    /* Titre centré */
+    .cv-title-block{text-align:center;margin-bottom:1.5rem;padding-bottom:1.2rem;border-bottom:2px solid #1a56db}
+    .cv-title-line{font-size:1.05rem;font-weight:800;color:#111;line-height:1.7}
+
+    /* Sections droite */
+    .cv-sec-r{margin-bottom:1.3rem}
+    .cv-sec-r-title{font-size:.85rem;font-weight:900;text-transform:uppercase;letter-spacing:.1em;color:#1a52b0;border-bottom:2px solid #1a52b0;padding-bottom:.3rem;margin-bottom:.9rem}
+
+    /* Formation */
+    .form-row{display:grid;grid-template-columns:72px 1fr;gap:.5rem .8rem;margin-bottom:.85rem;align-items:start}
+    .form-year{font-size:.74rem;font-weight:700;color:#4b5563;padding-top:.15rem;line-height:1.3}
+    .form-school{font-weight:800;font-size:.85rem;color:#111}
+    .form-degree{font-size:.78rem;color:#374151;margin-top:.1rem}
+    .form-sub{padding-left:.9rem;font-size:.73rem;color:#4b5563;margin-top:.2rem;list-style:disc}
+    .form-sub li{margin-bottom:.1rem}
+
+    /* Projets */
+    .proj-row{display:grid;grid-template-columns:50px 1fr;gap:.5rem .8rem;margin-bottom:.8rem;align-items:start}
+    .proj-year{font-size:.74rem;font-weight:700;color:#4b5563;padding-top:.15rem}
+    .proj-name{font-weight:800;font-size:.83rem;color:#111}
+    .proj-sub{padding-left:.9rem;font-size:.72rem;color:#4b5563;margin-top:.2rem;list-style:disc}
+    .proj-sub li{margin-bottom:.1rem}
+
+    /* Stages */
+    .stage-row{display:grid;grid-template-columns:62px 1fr;gap:.5rem .8rem;margin-bottom:1rem;align-items:start}
+    .stage-date{font-size:.72rem;font-weight:700;color:#4b5563;line-height:1.4;padding-top:.1rem}
+    .stage-company{font-weight:900;font-size:.9rem;color:#111}
+    .stage-loc{font-size:.74rem;color:#4b5563}
+    .stage-title{font-size:.78rem;font-weight:700;color:#1a52b0;margin-top:.1rem}
+    .stage-sub{padding-left:.9rem;font-size:.72rem;color:#4b5563;margin-top:.25rem;list-style:disc}
+    .stage-sub li{margin-bottom:.1rem}
+
+    /* ── PRINT ── */
+    @media print{
+      nav,.page-hero,.print-btn,.back{display:none!important}
+      body{background:#fff}
+      .cv-wrapper{margin:0;padding:0;max-width:100%}
+      .cv-card{box-shadow:none;border-radius:0}
+      .cv-left{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+      @page{margin:0;size:A4}
+    }
+
+    /* RESPONSIVE */
+    @media(max-width:700px){
+      .cv-card{grid-template-columns:1fr}
+      .cv-left{border-bottom:1px solid #222}
+      .nav-links{display:none;flex-direction:column;position:absolute;top:60px;left:0;right:0;background:#fff;padding:1rem 2rem;border-bottom:1px solid var(--border);gap:1rem}
+      .nav-links.open{display:flex}
+      .nav-toggle{display:flex}
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-brand">Christopher Petit</div>
+  <ul class="nav-links" id="nl">
+    <li><a href="index.html">Accueil</a></li>
+    <li><a href="apropos.html">À propos</a></li>
+    <li><a href="experience.html">Expériences</a></li>
+    <li><a href="projets.html">Projets</a></li>
+    <li><a href="competences.html">Compétences</a></li>
+    <li><a href="interets.html">Intérêts</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="cv.html" class="active">CV</a></li>
+  </ul>
+  <div class="nav-toggle" onclick="document.getElementById('nl').classList.toggle('open')">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-hero">
+  <div class="hero-inner">
+    <div>
+      <a href="index.html" class="back">← Retour à l'accueil</a>
+      <p class="sl">Curriculum Vitae</p>
+      <h1 class="pt">Mon CV</h1>
+    </div>
+    <button class="print-btn" onclick="window.print()">🖨️ Imprimer / Télécharger en PDF</button>
+  </div>
+</div>
+
+<!-- CV -->
+<div class="cv-wrapper">
+  <div class="cv-card">
+
+    <!-- ═══ COLONNE GAUCHE ═══ -->
+    <div class="cv-left">
+
+      <!-- Photo -->
+      <div class="cv-photo-wrap">
+        <img src="photos/christopher_photo.jpg" alt="Christopher Petit"/>
+      </div>
+
+      <!-- Nom -->
+      <div class="cv-name-block">
+        <div class="cv-firstname">Christopher</div>
+        <div class="cv-lastname">PETIT</div>
+        <div class="cv-age">Âge : 20 ans</div>
+      </div>
+
+      <hr class="cv-divider"/>
+
+      <!-- Contact -->
+      <div class="cv-contact-block">
+        <div class="cv-contact-bold">Permis B</div>
+        <div class="cv-contact-line">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="2" stroke-linecap="round"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+          Viry-Châtillon (91170)
+        </div>
+        <div class="cv-contact-line">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="2" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.67A2 2 0 012 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 8.08a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 15z"/></svg>
+          07 53 78 61 35
+        </div>
+        <div class="cv-contact-line">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="2" stroke-linecap="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <a href="mailto:christopher.petit58@gmail.com">christopher.petit58@gmail.com</a>
+        </div>
+        <div class="cv-contact-line">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="2" stroke-linecap="round"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          <a href="https://linkedin.com/in/christopher-petit-4nb1/" target="_blank">christopher-petit-4nb1</a>
+        </div>
+      </div>
+
+      <!-- COMPÉTENCES -->
+      <div class="cv-sec-l">
+        <div class="cv-sec-l-title">Compétences</div>
+
+        <div class="cv-sub-name">Électronique :</div>
+        <ul class="cv-sub-list">
+          <li>Câblage</li>
+          <li>Soudure des composants</li>
+          <li>Conception et routage de PCB</li>
+          <li>Réalisation des schémas électriques</li>
+        </ul>
+
+        <div class="cv-sub-name">Logiciels / Outils :</div>
+        <ul class="cv-sub-list">
+          <li>Atmel Studio · Arduino IDE · PSIM</li>
+          <li>KiCad · Code::Blocks · TIA Portal</li>
+          <li>Pack Office · VS Code · Spyder</li>
+        </ul>
+
+        <div class="cv-sub-name">Programmation :</div>
+        <ul class="cv-sub-list">
+          <li>C · Grafcet · Ladder</li>
+          <li>VHDL · Python · HTML/CSS</li>
+        </ul>
+
+        <div class="cv-sub-name">Humaines :</div>
+        <ul class="cv-sub-list">
+          <li>Pensée critique · Travail en équipe</li>
+          <li>Patience · Organisation</li>
+        </ul>
+      </div>
+
+      <!-- LANGUES -->
+      <div class="cv-sec-l">
+        <div class="cv-sec-l-title">Langues</div>
+        <div class="lang-item">
+          <div class="lang-top"><span>Tamoul</span><span>Niveau B1</span></div>
+          <div class="lang-bar"><div class="lang-fill" style="width:60%"></div></div>
+        </div>
+        <div class="lang-item">
+          <div class="lang-top"><span>Anglais</span><span>Niveau B2</span></div>
+          <div class="lang-bar"><div class="lang-fill" style="width:75%"></div></div>
+        </div>
+        <div class="lang-item">
+          <div class="lang-top"><span>Espagnol</span><span>Niveau A2</span></div>
+          <div class="lang-bar"><div class="lang-fill" style="width:30%"></div></div>
+        </div>
+      </div>
+
+      <!-- CENTRES D'INTÉRÊT -->
+      <div class="cv-sec-l">
+        <div class="cv-sec-l-title">Centres d'intérêt</div>
+        <div class="int-tags">
+          <span class="int-tag">Badminton</span>
+          <span class="int-tag">Basket</span>
+          <span class="int-tag">Manga</span>
+          <span class="int-tag">Échecs</span>
+        </div>
+      </div>
+
+    </div><!-- /cv-left -->
+
+    <!-- ═══ COLONNE DROITE ═══ -->
+    <div class="cv-right">
+
+      <!-- Titre -->
+      <div class="cv-title-block">
+        <div class="cv-title-line">Apprenti ingénieur ESIEE Paris – UGE</div>
+        <div class="cv-title-line">Filière Systèmes embarqués</div>
+        <div class="cv-title-line">Contrat 36 mois</div>
+      </div>
+
+      <!-- FORMATION -->
+      <div class="cv-sec-r">
+        <div class="cv-sec-r-title">Formation</div>
+
+        <div class="form-row">
+          <div class="form-year">2026 – 2029</div>
+          <div>
+            <div class="form-school">ESIEE Paris – Université Gustave Eiffel</div>
+            <div class="form-degree">Formation en apprentissage du cycle d'ingénieur</div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-year">2023 – 2026</div>
+          <div>
+            <div class="form-school">IUT d'Évry-Val-Essonne, Évry-Courcouronnes</div>
+            <div class="form-degree">BUT Génie Électrique et Informatique Industrielle</div>
+            <ul class="form-sub">
+              <li>Électronique analogique et numérique</li>
+              <li>Automatisme et supervision</li>
+              <li>Programmation de systèmes embarqués et Réseaux</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-year">2023</div>
+          <div>
+            <div class="form-school">Lycée Clément Ader, Athis-Mons</div>
+            <div class="form-degree">Baccalauréat technologique STI2D spécialité SIN</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROJETS D'ÉTUDES -->
+      <div class="cv-sec-r">
+        <div class="cv-sec-r-title">Projets d'études</div>
+
+        <div class="proj-row">
+          <div class="proj-year">2026</div>
+          <div>
+            <div class="proj-name">Automatisation d'un monte-charge</div>
+            <ul class="proj-sub">
+              <li>Programmation en Grafcet / Ladder sur automate Siemens avec TIA Portal</li>
+              <li>Gestion des capteurs, commandes moteur et sécurités</li>
+              <li>Tests et validation du cycle de fonctionnement</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="proj-row">
+          <div class="proj-year">2025</div>
+          <div>
+            <div class="proj-name">Robot suiveur avec détection d'obstacles</div>
+            <ul class="proj-sub">
+              <li>Utilisation des capteurs de lumière pour le suivi de ligne</li>
+              <li>Détection d'obstacles par capteur à ultrasons</li>
+              <li>Traitement des données capteurs et commande moteur via Arduino</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="proj-row">
+          <div class="proj-year">2025</div>
+          <div>
+            <div class="proj-name">Robot Sumo (Arduino, KiCad)</div>
+            <ul class="proj-sub">
+              <li>Conception d'un pont H avec transistor MOSFET pour contrôler les moteurs</li>
+              <li>Utilisation des capteurs de lumière pour détecter l'arène</li>
+              <li>Détection de l'adversaire par télémètre</li>
+              <li>Traitement des données capteurs et commande des moteurs via Arduino</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- STAGES ET EXPÉRIENCES -->
+      <div class="cv-sec-r">
+        <div class="cv-sec-r-title">Stages et expériences professionnelles</div>
+
+        <div class="stage-row">
+          <div class="stage-date">Mars<br>2026<br>–<br>Juin<br>2026</div>
+          <div>
+            <div class="stage-company">Scientec</div>
+            <div class="stage-loc">Les Ulis, 91940</div>
+            <div class="stage-title">Technicien SAV | Stage</div>
+            <ul class="stage-sub">
+              <li>Diagnostic et réparation d'appareils d'optique et d'instrumentation</li>
+              <li>Rédaction de rapports de tests</li>
+              <li>Réalisation des certificats d'étalonnage</li>
+              <li>Assistance téléphonique aux clients</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="stage-row">
+          <div class="stage-date">Janv.<br>2025<br>–<br>Mars<br>2025</div>
+          <div>
+            <div class="stage-company">WITT France S.A.R.L</div>
+            <div class="stage-loc">Morsang-sur-Orge, 91390</div>
+            <div class="stage-title">Technicien SAV | Stage</div>
+            <ul class="stage-sub">
+              <li>Diagnostic et réparation d'appareils de mesure de gaz</li>
+              <li>Rédaction de rapports de tests</li>
+              <li>Création et suivi de devis, commandes et bons de livraison</li>
+              <li>Réalisation des certificats d'étalonnage</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /cv-right -->
+  </div><!-- /cv-card -->
+</div><!-- /cv-wrapper -->
+
+<footer style="background:#111827;color:#9ca3af;text-align:center;padding:1.5rem 2rem;font-size:.8rem">
+  <p>© 2026 <span style="color:#fff;font-weight:600">Christopher Petit</span> · Portfolio BUT GEII</p>
+</footer>
+
+</body>
+</html>

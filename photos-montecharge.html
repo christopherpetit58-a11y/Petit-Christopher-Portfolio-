@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Photos – Monte-charge</title>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Segoe UI',system-ui,sans-serif;background:#0f172a;color:#e2e8f0;line-height:1.6}
+    a{text-decoration:none;color:inherit}
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;height:60px;padding:0 2rem;background:rgba(15,23,42,.95);backdrop-filter:blur(12px);border-bottom:1px solid #1e293b;display:flex;align-items:center;justify-content:space-between}
+    .nav-brand{font-weight:800;color:#60a5fa;font-size:.95rem}
+    .nav-links{display:flex;gap:1.5rem;list-style:none}
+    .nav-links a{font-size:.85rem;font-weight:500;color:#64748b;transition:color .2s}
+    .nav-links a:hover{color:#60a5fa}
+    .page-hero{padding:5.5rem 2rem 2.5rem;background:linear-gradient(135deg,#0c1a2e 0%,#0f172a 100%);border-bottom:1px solid #1e293b}
+    .c{max-width:960px;margin:0 auto}
+    .back{display:inline-flex;align-items:center;gap:.4rem;font-size:.85rem;color:#60a5fa;font-weight:600;margin-bottom:1rem}
+    .back:hover{text-decoration:underline}
+    .sl{font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#0ea5e9;margin-bottom:.3rem}
+    .pt{font-size:2rem;font-weight:900;color:#f1f5f9;letter-spacing:-.5px}
+    .content{padding:3rem 2rem}
+    .gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.2rem}
+    .photo-card{background:#1e293b;border-radius:12px;overflow:hidden;border:1px solid #334155;transition:.25s}
+    .photo-card:hover{border-color:#0ea5e9;transform:translateY(-2px)}
+    .photo-card img{width:100%;height:220px;object-fit:cover;cursor:pointer;display:block}
+    .photo-ph{width:100%;height:220px;background:#1e293b;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.5rem;color:#475569;cursor:pointer}
+    .photo-ph svg{width:40px;height:40px;stroke:#334155;fill:none;stroke-width:1.5}
+    .photo-ph span{font-size:.8rem}
+    .photo-cap{padding:.8rem 1rem;font-size:.85rem;color:#94a3b8;font-weight:500}
+    .info-banner{background:#1e293b;border:1px solid #1e40af;border-radius:12px;padding:1.2rem 1.5rem;margin-bottom:2rem;font-size:.88rem;color:#93c5fd}
+    .info-banner strong{color:#60a5fa}
+    footer{background:#020617;color:#475569;text-align:center;padding:1.5rem 2rem;font-size:.8rem;margin-top:3rem}
+    .lb{display:none;position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:999;align-items:center;justify-content:center}
+    .lb.open{display:flex}
+    .lb-img{max-width:90vw;max-height:85vh;border-radius:8px;object-fit:contain}
+    .lb-cap{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);color:#e2e8f0;font-size:.9rem;font-weight:500;background:rgba(0,0,0,.6);padding:.4rem 1rem;border-radius:8px;white-space:nowrap}
+    .lb-close{position:absolute;top:1.5rem;right:2rem;font-size:2rem;color:#64748b;cursor:pointer;line-height:1}
+    .lb-close:hover{color:#fff}
+    .lb-prev,.lb-next{position:absolute;top:50%;transform:translateY(-50%);font-size:2.5rem;color:#64748b;cursor:pointer;padding:.5rem 1rem;user-select:none}
+    .lb-prev{left:1rem}.lb-next{right:1rem}
+    .lb-prev:hover,.lb-next:hover{color:#fff}
+    @media(max-width:600px){.nav-links{display:none}}
+  </style>
+</head>
+<body>
+<nav>
+  <div class="nav-brand">Christopher Petit</div>
+  <ul class="nav-links">
+    <li><a href="index.html">Accueil</a></li>
+    <li><a href="projets.html">Projets</a></li>
+  </ul>
+</nav>
+<div class="page-hero">
+  <div class="c">
+    <a href="projets.html" class="back">← Retour aux projets</a>
+    <p class="sl">Projet académique</p>
+    <h1 class="pt">Pilotage Monte-charge</h1>
+  </div>
+</div>
+<section class="content">
+  <div class="c">
+    <div class="gallery">
+      <div class="photo-card" onclick="openLB(0)">
+        <img src="photos/rapports/montecharge-002.png" alt="Maquette monte-charge 3 niveaux"/>
+        <div class="photo-cap">Maquette monte-charge 3 niveaux avec l'automate S7-1200</div>
+      </div>
+      <div class="photo-card" onclick="openLB(1)">
+        <img src="photos/rapports/montecharge-014.png" alt="Câblage du coffret automate"/>
+        <div class="photo-cap">Câblage du coffret : entrées/sorties annotées pour s'y retrouver</div>
+      </div>
+      <div class="photo-card" onclick="openLB(2)">
+        <img src="photos/rapports/montecharge-018.png" alt="Programmation Ladder sur TIA Portal"/>
+        <div class="photo-cap">Programmation Ladder en logique combinatoire sur TIA Portal</div>
+      </div>
+    </div>
+  </div>
+</section>
+<footer><p>© 2026 Christopher Petit · Portfolio BUT GEII</p></footer>
+
+<div class="lb" id="lb" onclick="closeLB(event)">
+  <span class="lb-close" onclick="closeLB()">×</span>
+  <span class="lb-prev" onclick="event.stopPropagation();prevImg()">‹</span>
+  <img class="lb-img" id="lb-img" src="" alt=""/>
+  <span class="lb-next" onclick="event.stopPropagation();nextImg()">›</span>
+  <div class="lb-cap" id="lb-cap"></div>
+</div>
+<script>
+  const images=[
+    {src:'photos/rapports/montecharge-002.png',cap:'Maquette monte-charge 3 niveaux avec l\'automate S7-1200'},
+    {src:'photos/rapports/montecharge-014.png',cap:'Câblage du coffret : entrées/sorties annotées'},
+    {src:'photos/rapports/montecharge-018.png',cap:'Programmation Ladder en logique combinatoire sur TIA Portal'}
+  ];
+  let cur=0;
+  function openLB(i){cur=i;document.getElementById('lb-img').src=images[i].src;document.getElementById('lb-cap').textContent=images[i].cap;document.getElementById('lb').classList.add('open')}
+  function closeLB(e){if(!e||e.target===document.getElementById('lb')||e.target.classList.contains('lb-close'))document.getElementById('lb').classList.remove('open')}
+  function prevImg(){cur=(cur-1+images.length)%images.length;openLB(cur)}
+  function nextImg(){cur=(cur+1)%images.length;openLB(cur)}
+  document.addEventListener('keydown',e=>{if(e.key==='ArrowLeft')prevImg();if(e.key==='ArrowRight')nextImg();if(e.key==='Escape')document.getElementById('lb').classList.remove('open')});
+</script>
+</body>
+</html>

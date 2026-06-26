@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Photos stage WITT France – Christopher Petit</title>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Segoe UI',system-ui,sans-serif;background:#0f172a;color:#f1f5f9;min-height:100vh}
+    a{text-decoration:none;color:inherit}
+    :root{--accent:#2563eb;--border:#1e293b;--r:12px}
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;height:60px;padding:0 2rem;
+      background:rgba(15,23,42,.95);backdrop-filter:blur(12px);
+      border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+    .nav-brand{font-weight:800;color:#60a5fa;font-size:.95rem}
+    .nav-links{display:flex;gap:1.5rem;list-style:none}
+    .nav-links a{font-size:.85rem;font-weight:500;color:#94a3b8;transition:color .2s}
+    .nav-links a:hover,.nav-links a.active{color:#60a5fa;font-weight:700}
+    .nav-toggle{display:none;flex-direction:column;gap:5px;cursor:pointer}
+    .nav-toggle span{display:block;width:22px;height:2px;background:#94a3b8;border-radius:2px}
+    .page-hero{padding:5.5rem 2rem 2rem;background:linear-gradient(135deg,#0c1f3a 0%,#0f172a 100%);border-bottom:1px solid var(--border)}
+    .c{max-width:1100px;margin:0 auto}
+    .back{display:inline-flex;align-items:center;gap:.4rem;font-size:.85rem;color:#60a5fa;font-weight:600;margin-bottom:.8rem}.back:hover{text-decoration:underline}
+    .sl{font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#3b82f6;margin-bottom:.3rem}
+    .pt{font-size:2rem;font-weight:900;color:#f1f5f9;letter-spacing:-.5px}
+    .pt-sub{color:#64748b;margin-top:.4rem;font-size:.95rem}
+    .content{padding:2.5rem 2rem 4rem}
+    .section-label{font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#3b82f6;margin-bottom:.8rem;margin-top:2rem}
+    .section-label:first-child{margin-top:0}
+    .gallery-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem;margin-bottom:1rem}
+    .gallery-item{background:#1e293b;border-radius:var(--r);overflow:hidden;border:1px solid #334155;cursor:pointer;transition:.25s}
+    .gallery-item:hover{transform:translateY(-4px);border-color:#3b82f6;box-shadow:0 0 0 1px #3b82f6,0 8px 30px rgba(37,99,235,.3)}
+    .gallery-img{width:100%;height:220px;object-fit:cover;display:block;transition:.3s}
+    .gallery-item:hover .gallery-img{transform:scale(1.03)}
+    .gallery-caption{padding:1rem 1.2rem}
+    .caption-title{font-weight:700;font-size:.95rem;color:#f1f5f9;margin-bottom:.25rem}
+    .caption-desc{font-size:.82rem;color:#64748b}
+    .lightbox{display:none;position:fixed;inset:0;z-index:999;background:rgba(0,0,0,.93);align-items:center;justify-content:center;padding:1rem}
+    .lightbox.open{display:flex}
+    .lb-content{position:relative;max-width:90vw;max-height:90vh;text-align:center}
+    .lb-img{max-width:90vw;max-height:82vh;border-radius:8px;object-fit:contain;box-shadow:0 0 60px rgba(0,0,0,.8)}
+    .lb-close{position:absolute;top:-16px;right:-16px;width:36px;height:36px;background:#334155;border:none;border-radius:50%;color:#f1f5f9;font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.2s;z-index:1000}
+    .lb-close:hover{background:#ef4444}
+    .lb-caption{text-align:center;margin-top:.8rem;font-size:.85rem;color:#94a3b8}
+    .lb-nav{display:flex;gap:1rem;justify-content:center;margin-top:.8rem}
+    .lb-btn{background:#1e293b;border:1px solid #334155;color:#f1f5f9;padding:.4rem 1rem;border-radius:8px;cursor:pointer;font-size:.88rem;transition:.2s}
+    .lb-btn:hover{background:#334155;border-color:#3b82f6}
+    footer{background:#080f1a;color:#475569;text-align:center;padding:1.5rem 2rem;font-size:.8rem}
+    footer span{color:#94a3b8;font-weight:600}
+    .fi{opacity:0;transform:translateY(18px);transition:opacity .6s,transform .6s}.fi.v{opacity:1;transform:none}
+    @media(max-width:600px){.gallery-grid{grid-template-columns:1fr}.nav-links{display:none;flex-direction:column;position:absolute;top:60px;left:0;right:0;background:#0f172a;padding:1rem 2rem;border-bottom:1px solid var(--border);gap:1rem}.nav-links.open{display:flex}.nav-toggle{display:flex}}
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-brand">Christopher Petit</div>
+  <ul class="nav-links" id="nl">
+    <li><a href="index.html">Accueil</a></li>
+    <li><a href="apropos.html">À propos</a></li>
+    <li><a href="experience.html" class="active">Expériences</a></li>
+    <li><a href="projets.html">Projets</a></li>
+    <li><a href="competences.html">Compétences</a></li>
+    <li><a href="interets.html">Intérêts</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="cv.html">CV</a></li>
+  </ul>
+  <div class="nav-toggle" onclick="document.getElementById('nl').classList.toggle('open')"><span></span><span></span><span></span></div>
+</nav>
+
+<div class="page-hero">
+  <div class="c">
+    <a href="experience.html" class="back">← Retour aux expériences</a>
+    <p class="sl">Stage · Janv.–Mars 2025 · 10 semaines</p>
+    <h1 class="pt">Photos du stage WITT France</h1>
+    <p class="pt-sub">WITT France SARL · Morsang-sur-Orge (91) · Mesure & contrôle de gaz industriels</p>
+  </div>
+</div>
+
+<section class="content">
+  <div class="c">
+
+    <p class="section-label fi">L'atelier & les équipements</p>
+    <div class="gallery-grid">
+      <div class="gallery-item fi" onclick="openLb(0)">
+        <img class="gallery-img" src="photos/witt_1.jpg" alt="Bouteilles de gaz étalons"/>
+        <div class="gallery-caption">
+          <div class="caption-title">Bouteilles de gaz étalons</div>
+          <div class="caption-desc">Stock de bouteilles (N2, O2, CO2…) utilisées pour l'étalonnage des analyseurs</div>
+        </div>
+      </div>
+      <div class="gallery-item fi" onclick="openLb(1)">
+        <img class="gallery-img" src="photos/witt_2.jpg" alt="Panneau de distribution de gaz"/>
+        <div class="gallery-caption">
+          <div class="caption-title">Panneau de distribution de gaz</div>
+          <div class="caption-desc">Vannes pour chaque type de gaz (N2, O2, CO2, 0.9% O2, 70% O2…) reliées aux bouteilles</div>
+        </div>
+      </div>
+    </div>
+
+    <p class="section-label fi">Tests & étalonnage</p>
+    <div class="gallery-grid">
+      <div class="gallery-item fi" onclick="openLb(2)">
+        <img class="gallery-img" src="photos/witt_3.jpg" alt="Débitmètre"/>
+        <div class="gallery-caption">
+          <div class="caption-title">Débitmètre</div>
+          <div class="caption-desc">Mesure du débit (min. 40 mL/min), première étape du diagnostic avant les mesures de gaz</div>
+        </div>
+      </div>
+      <div class="gallery-item fi" onclick="openLb(3)">
+        <img class="gallery-img" src="photos/witt_4.jpg" alt="Oxybaby en cours de mesure"/>
+        <div class="gallery-caption">
+          <div class="caption-title">Oxybaby en cours de mesure</div>
+          <div class="caption-desc">20.71% O2, étalonnage validé. Étiquette "Prochaine inspection" collée sur l'appareil</div>
+        </div>
+      </div>
+    </div>
+
+    <p class="section-label fi">Diagnostic & identification</p>
+    <div class="gallery-grid">
+      <div class="gallery-item fi" onclick="openLb(4)">
+        <img class="gallery-img" src="photos/witt_5.jpg" alt="Plaque identification Oxybaby"/>
+        <div class="gallery-caption">
+          <div class="caption-title">Plaque d'identification Oxybaby</div>
+          <div class="caption-desc">Type, date de fabrication et numéro de série, relevés sur la fiche SAV lors du diagnostic</div>
+        </div>
+      </div>
+      <div class="gallery-item fi" onclick="openLb(5)">
+        <img class="gallery-img" src="photos/witt_6.jpg" alt="Intérieur Oxybaby ouvert"/>
+        <div class="gallery-caption">
+          <div class="caption-title">Intérieur d'un Oxybaby ouvert</div>
+          <div class="caption-desc">Carte principale, capteur O2 (rouge), pompe et câblage, vue lors du diagnostic approfondi</div>
+        </div>
+      </div>
+    </div>
+
+    <p class="section-label fi">Réparations & composants</p>
+    <div class="gallery-grid">
+      <div class="gallery-item fi" onclick="openLb(6)">
+        <img class="gallery-img" src="photos/witt_7.jpg" alt="Capteur O2 neuf"/>
+        <div class="gallery-caption">
+          <div class="caption-title">Capteur O2 neuf</div>
+          <div class="caption-desc">Remplacement le plus courant, durée de vie ~18 mois (capteur chimique linéaire)</div>
+        </div>
+      </div>
+      <div class="gallery-item fi" onclick="openLb(7)">
+        <img class="gallery-img" src="photos/witt_8.jpg" alt="Carte principale Oxybaby"/>
+        <div class="gallery-caption">
+          <div class="caption-title">Carte principale de l'Oxybaby</div>
+          <div class="caption-desc">PCB central avec microcontrôleur, condensateurs et connecteurs de puissance</div>
+        </div>
+      </div>
+      <div class="gallery-item fi" onclick="openLb(8)">
+        <img class="gallery-img" src="photos/witt_9.jpg" alt="Étiquettes prochaine inspection"/>
+        <div class="gallery-caption">
+          <div class="caption-title">Étiquettes "Prochaine inspection"</div>
+          <div class="caption-desc">Collées sur chaque appareil après maintenance pour indiquer la date de la prochaine révision annuelle</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="lightbox" id="lb" onclick="if(event.target===this)closeLb()">
+  <div class="lb-content">
+    <button class="lb-close" onclick="closeLb()">✕</button>
+    <img class="lb-img" id="lb-img" src="" alt=""/>
+    <div class="lb-caption" id="lb-cap"></div>
+    <div class="lb-nav">
+      <button class="lb-btn" onclick="moveLb(-1)">← Précédent</button>
+      <button class="lb-btn" onclick="moveLb(1)">Suivant →</button>
+    </div>
+  </div>
+</div>
+
+<footer><p>© 2026 <span>Christopher Petit</span> · Portfolio BUT GEII</p></footer>
+<script>
+  const images=[
+    {src:'photos/witt_1.jpg',cap:'Bouteilles de gaz étalons (N2, O2, CO2…) utilisées pour l\'étalonnage'},
+    {src:'photos/witt_2.jpg',cap:'Panneau de distribution de gaz avec vannes par type de gaz'},
+    {src:'photos/witt_3.jpg',cap:'Débitmètre, mesure du débit avant les tests (min. 40 mL/min)'},
+    {src:'photos/witt_4.jpg',cap:'Oxybaby affichant 20.71% O2 après étalonnage, étiquette prochaine inspection visible'},
+    {src:'photos/witt_5.jpg',cap:'Plaque arrière d\'un Oxybaby : type, date de fabrication et numéro de série'},
+    {src:'photos/witt_6.jpg',cap:'Intérieur d\'un Oxybaby ouvert : carte principale, capteur O2 (rouge), pompe'},
+    {src:'photos/witt_7.jpg',cap:'Capteur O2 neuf, remplacement le plus fréquent, durée de vie ~18 mois'},
+    {src:'photos/witt_8.jpg',cap:'Carte principale de l\'Oxybaby, microcontrôleur et circuits de mesure'},
+    {src:'photos/witt_9.jpg',cap:'Rouleau d\'étiquettes "Prochaine inspection" collée sur chaque appareil après maintenance'},
+  ];
+  let cur=0;
+  function openLb(i){cur=i;document.getElementById('lb-img').src=images[i].src;document.getElementById('lb-cap').textContent=images[i].cap;document.getElementById('lb').classList.add('open')}
+  function closeLb(){document.getElementById('lb').classList.remove('open')}
+  function moveLb(d){cur=(cur+d+images.length)%images.length;openLb(cur)}
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLb();if(e.key==='ArrowRight')moveLb(1);if(e.key==='ArrowLeft')moveLb(-1)});
+  const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('v');obs.unobserve(x.target)}})},{threshold:.1});
+  document.querySelectorAll('.fi').forEach(el=>obs.observe(el));
+</script>
+</body></html>

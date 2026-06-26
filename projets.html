@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Projets – Christopher Petit</title>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:'Segoe UI',system-ui,sans-serif;background:#f9fafb;color:#1f2937;line-height:1.6}
+    a{text-decoration:none;color:inherit}
+    :root{--accent:#2563eb;--accent-dark:#1d4ed8;--accent-light:#eff6ff;--surface:#fff;--border:#e5e7eb;--muted:#6b7280;--r:14px;--sh:0 1px 3px rgba(0,0,0,.08),0 4px 16px rgba(0,0,0,.06);--sh2:0 4px 6px rgba(0,0,0,.07),0 10px 30px rgba(0,0,0,.10)}
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;height:60px;padding:0 2rem;background:rgba(255,255,255,.93);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+    .nav-brand{font-weight:800;color:var(--accent);font-size:.95rem}
+    .nav-links{display:flex;gap:1.5rem;list-style:none}
+    .nav-links a{font-size:.85rem;font-weight:500;color:var(--muted);transition:color .2s}
+    .nav-links a:hover,.nav-links a.active{color:var(--accent);font-weight:700}
+    .nav-toggle{display:none;flex-direction:column;gap:5px;cursor:pointer}
+    .nav-toggle span{display:block;width:22px;height:2px;background:#374151;border-radius:2px}
+    .page-hero{padding:5.5rem 2rem 2.5rem;background:linear-gradient(135deg,#eef2ff 0%,#fff 100%);border-bottom:1px solid var(--border)}
+    .c{max-width:1000px;margin:0 auto}
+    .back{display:inline-flex;align-items:center;gap:.4rem;font-size:.85rem;color:var(--accent);font-weight:600;margin-bottom:1rem}
+    .back:hover{text-decoration:underline}
+    .sl{font-size:.78rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:.3rem}
+    .pt{font-size:2.2rem;font-weight:900;color:#111827;letter-spacing:-.5px}
+    .pt-sub{color:var(--muted);margin-top:.5rem;font-size:1rem}
+    .content{padding:3rem 2rem}
+    .proj-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(440px,1fr));gap:2rem}
+    .proj-card{background:var(--surface);border-radius:var(--r);box-shadow:var(--sh);border:1px solid var(--border);overflow:hidden;transition:.25s}
+    .proj-card:hover{box-shadow:var(--sh2);transform:translateY(-3px)}
+    .proj-illus{width:100%;height:420px;overflow:hidden;background:#f1f5f9}
+    .proj-illus svg{width:100%;height:100%}
+    .proj-illus img{width:100%;height:100%;object-fit:cover;display:block}
+    .proj-body{padding:1.8rem}
+    .proj-title{font-size:1.2rem;font-weight:800;color:#111827;margin-bottom:.6rem}
+    .proj-desc{font-size:.92rem;color:#374151;margin-bottom:1rem}
+    .proj-ul{padding-left:1.3rem;color:#374151;font-size:.88rem;margin-bottom:1.2rem}
+    .proj-ul li{margin-bottom:.4rem}
+    .tags{display:flex;flex-wrap:wrap;gap:.4rem}
+    .tag{font-size:.75rem;font-weight:600;padding:.25rem .7rem;border-radius:999px;background:#f3f4f6;color:#374151;border:1px solid var(--border)}
+    .tag-b{background:var(--accent-light);color:var(--accent);border-color:#bfdbfe}
+    .tag-g{background:#f0fdf4;color:#15803d;border-color:#bbf7d0}
+    .photos-btn{display:inline-flex;align-items:center;gap:.5rem;margin-top:1.2rem;padding:.6rem 1.2rem;background:#0f172a;color:#60a5fa;border:1px solid #1e40af;border-radius:10px;font-size:.88rem;font-weight:700;transition:.2s}
+    .photos-btn:hover{background:#1e293b;border-color:#3b82f6;transform:translateY(-1px)}
+    .page-nav{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;margin-top:3rem;padding-top:2rem;border-top:1px solid var(--border)}
+    .btn{display:inline-flex;align-items:center;gap:.4rem;padding:.65rem 1.4rem;border-radius:var(--r);font-size:.9rem;font-weight:600;transition:.2s;cursor:pointer;border:none}
+    .btn-p{background:var(--accent);color:#fff}
+    .btn-p:hover{background:var(--accent-dark);transform:translateY(-1px);box-shadow:var(--sh2)}
+    .btn-o{background:transparent;color:var(--accent);border:2px solid var(--accent)}
+    .btn-o:hover{background:var(--accent-light)}
+    footer{background:#111827;color:#9ca3af;text-align:center;padding:1.5rem 2rem;font-size:.8rem}
+    footer span{color:#fff;font-weight:600}
+    .fi{opacity:0;transform:translateY(18px);transition:opacity .6s,transform .6s}
+    .fi.v{opacity:1;transform:none}
+    @media(max-width:600px){
+      .proj-grid{grid-template-columns:1fr}
+      .nav-links{display:none;flex-direction:column;position:absolute;top:60px;left:0;right:0;background:#fff;padding:1rem 2rem;border-bottom:1px solid var(--border);gap:1rem}
+      .nav-links.open{display:flex}
+      .nav-toggle{display:flex}
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-brand">Christopher Petit</div>
+  <ul class="nav-links" id="nl">
+    <li><a href="index.html">Accueil</a></li>
+    <li><a href="apropos.html">À propos</a></li>
+    <li><a href="experience.html">Expériences</a></li>
+    <li><a href="projets.html" class="active">Projets</a></li>
+    <li><a href="competences.html">Compétences</a></li>
+    <li><a href="interets.html">Intérêts</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="cv.html">CV</a></li>
+  </ul>
+  <div class="nav-toggle" onclick="document.getElementById('nl').classList.toggle('open')">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="c">
+    <a href="index.html" class="back">← Retour à l'accueil</a>
+    <p class="sl">Réalisations techniques</p>
+    <h1 class="pt">Mes projets</h1>
+    <p class="pt-sub">Projets académiques alliant électronique, programmation embarquée et automatisme</p>
+
+  </div>
+</div>
+
+<section class="content">
+  <div class="c">
+    <div class="proj-grid">
+
+      <!-- ROBOT SUMO -->
+      <div class="proj-card fi">
+        <div class="proj-illus">
+          <img src="photos/rapports/sumo-000.png" alt="Robot Sumo autonome avec télémètre" style="object-fit:contain;background:#fff"/>
+        </div>
+        <div class="proj-body">
+          <div class="proj-title">Robot Sumo</div>
+          <p class="proj-desc">Robot autonome de compétition Sumo, conçu de A à Z. La partie la plus technique était le pont en H pour piloter les moteurs : on a comparé transistors bipolaires et MOSFETs en simulation (PSIM, Tinkercad) avant de valider sur plaque à trous, puis on a routé le PCB sous KiCad.</p>
+          <ul class="proj-ul">
+            <li>Étude comparative bipolaire vs MOSFET : les MOSFETs s'imposent nettement (7 V / 53 mA contre 2,6 V / 18,8 mA en bipolaire, soit 16 216 tr/min contre 6 432 tr/min sur Tinkercad)</li>
+            <li>Simulations sur PSIM et Tinkercad avant prototypage, puis validation expérimentale sur plaque à trous</li>
+            <li>PCB final routé sous KiCad (12,4 × 9,5 cm), avec 4 trous de fixation et transistors IRF620 / IRF9520</li>
+            <li>3 capteurs IR CNY70 pour la limite d'arène, télémètre ultrasonique pour détecter l'adversaire</li>
+            <li>Arduino Uno comme unité centrale : lecture des capteurs, décision, commande PWM du pont en H</li>
+          </ul>
+          <div class="tags">
+            <span class="tag tag-b">Arduino</span>
+            <span class="tag tag-b">KiCad</span>
+            <span class="tag tag-g">Électronique</span>
+            <span class="tag">Pont en H MOSFET</span>
+            <span class="tag">PSIM</span>
+            <span class="tag">IRF620 / IRF9520</span>
+            <span class="tag">PCB</span>
+            <span class="tag">CNY70</span>
+          </div>
+          <a href="photos-robotsumo.html" class="photos-btn">Voir les photos du projet →</a>
+        </div>
+      </div>
+
+      <!-- MONTE-CHARGE -->
+      <div class="proj-card fi">
+        <div class="proj-illus">
+          <img src="photos/monte charge.gif" alt="Maquette monte-charge 3 niveaux avec automate Siemens S7-1200" style="object-fit:contain;background:#fff"/>
+        </div>
+        <div class="proj-body">
+          <div class="proj-title">Pilotage d'un Monte-charge</div>
+          <p class="proj-desc">Automatisation d'un monte-charge industriel à 3 niveaux sur Siemens S7-1200, programmé en Ladder sur TIA Portal. On est partis des équations logiques, on a câblé le coffret, et on a débogué jusqu'à ce que tout soit conforme au cahier des charges.</p>
+          <ul class="proj-ul">
+            <li>8 entrées (3 capteurs de position C1-C3, 3 boutons d'appel BP1-BP3, mode auto/manu, arrêt d'urgence) et 5 sorties (3 voyants d'étage, moteur montée/descente) câblées et déclarées dans TIA Portal</li>
+            <li>Programmation en Ladder logique combinatoire, basée sur les équations établies en amont</li>
+            <li>Détection et correction d'une erreur de câblage (alimentation branchée sur une sortie plutôt que sur le bornier 2L) à l'aide d'un voltmètre</li>
+            <li>Correction d'un doublon de sortie dans le programme Ladder, puis gestion de l'arrêt d'urgence en contact normalement fermé pour la sécurité</li>
+            <li>Validation du cycle complet en mode automatique et manuel sur la maquette réelle</li>
+          </ul>
+          <div class="tags">
+            <span class="tag tag-b">TIA Portal</span>
+            <span class="tag tag-b">Ladder</span>
+            <span class="tag">Siemens S7-1200</span>
+            <span class="tag">Logique combinatoire</span>
+            <span class="tag">Câblage industriel</span>
+            <span class="tag">Débogage</span>
+          </div>
+          <a href="photos-montecharge.html" class="photos-btn">Voir les photos du projet →</a>
+        </div>
+      </div>
+
+      <!-- ROBOT SUIVEUR DE LIGNE -->
+      <div class="proj-card fi">
+        <div class="proj-illus">
+          <img src="photos/rapports/suiveur-001.png" alt="Robot suiveur de ligne autonome avec servomoteur et capteurs"/>
+        </div>
+        <div class="proj-body">
+          <div class="proj-title">Robot Suiveur de Ligne</div>
+          <p class="proj-desc">Robot autonome réalisé avec Simon Bérubé, bien plus qu'un simple suiveur de ligne : il détecte des obstacles, les contourne, suit un mur, lit des couleurs au sol et choisit son itinéraire en conséquence. Mission en 9 étapes programmée en C sur Arduino.</p>
+          <ul class="proj-ul">
+            <li>4 capteurs LDR sous le châssis via convertisseur ADS1115 (I2C) pour le suivi de ligne, variable <code>route</code> encodée sur un octet pour sélectionner la correction moteur</li>
+            <li>Capteur ultrasonique HC-SR04 monté sur servomoteur (Timer1) pour mesurer la distance et alterner entre contournement d'obstacle et suivi de mur</li>
+            <li>Capteur de couleurs TCS34725 (RGB) avec contacteur physique : rouge = gauche, bleu = tout droit, vert = droite</li>
+            <li>Commande moteur entièrement gérée par registres (Timer0, OCR0A/B) avec 8 fonctions de direction distinctes</li>
+            <li>Boucle principale structurée en 9 étapes : suivi de ligne, détection couleur, repositionnement, contournement, suivi de mur, choix de chemin</li>
+          </ul>
+          <div class="tags">
+            <span class="tag tag-b">Arduino C</span>
+            <span class="tag tag-b">ADS1115</span>
+            <span class="tag tag-g">Robotique</span>
+            <span class="tag">TCS34725</span>
+            <span class="tag">HC-SR04</span>
+            <span class="tag">Servomoteur</span>
+            <span class="tag">PWM Timer</span>
+            <span class="tag">Capteurs LDR</span>
+          </div>
+          <a href="photos-robotsuiveur.html" class="photos-btn">Voir les photos du projet →</a>
+        </div>
+      </div>
+
+      <!-- NIRYO PICK AND PLACE -->
+      <div class="proj-card fi">
+        <div class="proj-illus">
+          <img src="photos/rapports/niryo-000.png" alt="Robot Niryo NED2 avec convoyeur et pièces colorées" style="object-fit:contain;background:#fff"/>
+        </div>
+        <div class="proj-body">
+          <div class="proj-title">Pick and Place – Robot Niryo NED2</div>
+          <p class="proj-desc">Mise en œuvre d'un système automatisé de Pick and Place à l'aide du robot Niryo NED2 et d'un convoyeur. Le projet consistait à comparer trois architectures de commande, de la plus simple à la plus centralisée.</p>
+          <ul class="proj-ul">
+            <li>Mode 1 : convoyeur piloté par sa control box, robot en autonomie via Vision Pick (détection de pièces rondes ou carrées par caméra intégrée, quelle que soit la couleur)</li>
+            <li>Mode 2 : robot NED2 pilote directement le convoyeur via ses blocs fonctionnels et gère la détection IR en plus du Pick and Place</li>
+            <li>Mode 3 : Arduino Uno comme unité centrale de commande (détection IR, pilotage convoyeur, déclenchement du robot), partiellement validé en raison d'instabilités matérielles</li>
+            <li>Programmation par blocs (Niryo Studio) avec phases de déplacement en position sécurité pour éviter les collisions</li>
+            <li>Calibrage d'un espace de travail 4 points pour la Vision Pick, avec gestion des décalages de positionnement</li>
+          </ul>
+          <div class="tags">
+            <span class="tag tag-b">Niryo NED2</span>
+            <span class="tag tag-b">Arduino</span>
+            <span class="tag tag-g">Robotique</span>
+            <span class="tag">Vision Pick</span>
+            <span class="tag">Capteur IR</span>
+            <span class="tag">Programmation blocs</span>
+            <span class="tag">Automatisme</span>
+          </div>
+          <a href="photos-niryo.html" class="photos-btn">Voir les photos du projet →</a>
+        </div>
+      </div>
+
+    </div><!-- /proj-grid -->
+
+    <div class="page-nav fi">
+      <a href="experience.html" class="btn btn-o">← Expériences</a>
+      <a href="competences.html" class="btn btn-p">Voir mes compétences →</a>
+    </div>
+  </div>
+</section>
+
+<footer><p>© 2026 <span>Christopher Petit</span> · Portfolio BUT GEII</p></footer>
+
+<script>
+  const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('v');obs.unobserve(x.target)}})},{threshold:.08});
+  document.querySelectorAll('.fi').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

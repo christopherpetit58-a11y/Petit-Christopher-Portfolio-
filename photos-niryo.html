@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Photos – Robot Niryo NED2</title>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Segoe UI',system-ui,sans-serif;background:#0f172a;color:#e2e8f0;line-height:1.6}
+    a{text-decoration:none;color:inherit}
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;height:60px;padding:0 2rem;background:rgba(15,23,42,.95);backdrop-filter:blur(12px);border-bottom:1px solid #1e293b;display:flex;align-items:center;justify-content:space-between}
+    .nav-brand{font-weight:800;color:#60a5fa;font-size:.95rem}
+    .nav-links{display:flex;gap:1.5rem;list-style:none}
+    .nav-links a{font-size:.85rem;font-weight:500;color:#64748b;transition:color .2s}
+    .nav-links a:hover{color:#60a5fa}
+    .page-hero{padding:5.5rem 2rem 2.5rem;background:linear-gradient(135deg,#0f2240 0%,#0f172a 100%);border-bottom:1px solid #1e293b}
+    .c{max-width:960px;margin:0 auto}
+    .back{display:inline-flex;align-items:center;gap:.4rem;font-size:.85rem;color:#60a5fa;font-weight:600;margin-bottom:1rem}
+    .back:hover{text-decoration:underline}
+    .sl{font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#3b82f6;margin-bottom:.3rem}
+    .pt{font-size:2rem;font-weight:900;color:#f1f5f9;letter-spacing:-.5px}
+    .content{padding:3rem 2rem}
+    .gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.2rem}
+    .photo-card{background:#1e293b;border-radius:12px;overflow:hidden;border:1px solid #334155;transition:.25s}
+    .photo-card:hover{border-color:#3b82f6;transform:translateY(-2px)}
+    .photo-card img{width:100%;height:220px;object-fit:cover;cursor:pointer;display:block}
+    .photo-cap{padding:.8rem 1rem;font-size:.85rem;color:#94a3b8;font-weight:500}
+    footer{background:#020617;color:#475569;text-align:center;padding:1.5rem 2rem;font-size:.8rem;margin-top:3rem}
+    .lb{display:none;position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:999;align-items:center;justify-content:center}
+    .lb.open{display:flex}
+    .lb-img{max-width:90vw;max-height:85vh;border-radius:8px;object-fit:contain}
+    .lb-cap{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);color:#e2e8f0;font-size:.9rem;font-weight:500;background:rgba(0,0,0,.6);padding:.4rem 1rem;border-radius:8px;white-space:nowrap}
+    .lb-close{position:absolute;top:1.5rem;right:2rem;font-size:2rem;color:#64748b;cursor:pointer;line-height:1}
+    .lb-close:hover{color:#fff}
+    .lb-prev,.lb-next{position:absolute;top:50%;transform:translateY(-50%);font-size:2.5rem;color:#64748b;cursor:pointer;padding:.5rem 1rem;user-select:none}
+    .lb-prev{left:1rem}.lb-next{right:1rem}
+    .lb-prev:hover,.lb-next:hover{color:#fff}
+    @media(max-width:600px){.nav-links{display:none}}
+  </style>
+</head>
+<body>
+<nav>
+  <div class="nav-brand">Christopher Petit</div>
+  <ul class="nav-links">
+    <li><a href="index.html">Accueil</a></li>
+    <li><a href="projets.html">Projets</a></li>
+  </ul>
+</nav>
+<div class="page-hero">
+  <div class="c">
+    <a href="projets.html" class="back">← Retour aux projets</a>
+    <p class="sl">SAE 5 · Projet académique</p>
+    <h1 class="pt">Pick and Place – Robot Niryo NED2</h1>
+  </div>
+</div>
+<section class="content">
+  <div class="c">
+    <div class="gallery">
+      <div class="photo-card" onclick="openLB(0)">
+        <img src="photos/rapports/niryo-000.png" alt="Système complet Niryo NED2 avec convoyeur"/>
+        <div class="photo-cap">Système complet : robot NED2, convoyeur et pièces colorées</div>
+      </div>
+      <div class="photo-card" onclick="openLB(1)">
+        <img src="photos/rapports/niryo-003.png" alt="Programme blocs Vision Pick Mode 1"/>
+        <div class="photo-cap">Programme blocs Mode 1 : Vision Pick (détection forme et couleur)</div>
+      </div>
+      <div class="photo-card" onclick="openLB(2)">
+        <img src="photos/rapports/niryo-007.png" alt="Convoyeur avec control box"/>
+        <div class="photo-cap">Convoyeur et sa control box pour le pilotage en Mode 1</div>
+      </div>
+      <div class="photo-card" onclick="openLB(3)">
+        <img src="photos/rapports/niryo-010.png" alt="Panneau de connexions du robot NED2"/>
+        <div class="photo-cap">Panneau E/S du Niryo NED2 : entrées digitales, convoyeur et capteur IR</div>
+      </div>
+    </div>
+  </div>
+</section>
+<footer><p>© 2026 Christopher Petit · Portfolio BUT GEII</p></footer>
+
+<div class="lb" id="lb" onclick="closeLB(event)">
+  <span class="lb-close" onclick="closeLB()">×</span>
+  <span class="lb-prev" onclick="event.stopPropagation();prevImg()">‹</span>
+  <img class="lb-img" id="lb-img" src="" alt=""/>
+  <span class="lb-next" onclick="event.stopPropagation();nextImg()">›</span>
+  <div class="lb-cap" id="lb-cap"></div>
+</div>
+<script>
+  const images=[
+    {src:'photos/rapports/niryo-000.png',cap:'Système complet : robot NED2, convoyeur et pièces colorées'},
+    {src:'photos/rapports/niryo-003.png',cap:'Programme blocs Mode 1 : Vision Pick (détection forme et couleur)'},
+    {src:'photos/rapports/niryo-007.png',cap:'Convoyeur et sa control box pour le pilotage en Mode 1'},
+    {src:'photos/rapports/niryo-010.png',cap:'Panneau E/S du Niryo NED2 : entrées digitales, convoyeur et capteur IR'}
+  ];
+  let cur=0;
+  function openLB(i){cur=i;document.getElementById('lb-img').src=images[i].src;document.getElementById('lb-cap').textContent=images[i].cap;document.getElementById('lb').classList.add('open')}
+  function closeLB(e){if(!e||e.target===document.getElementById('lb')||e.target.classList.contains('lb-close'))document.getElementById('lb').classList.remove('open')}
+  function prevImg(){cur=(cur-1+images.length)%images.length;openLB(cur)}
+  function nextImg(){cur=(cur+1)%images.length;openLB(cur)}
+  document.addEventListener('keydown',e=>{if(e.key==='ArrowLeft')prevImg();if(e.key==='ArrowRight')nextImg();if(e.key==='Escape')document.getElementById('lb').classList.remove('open')});
+</script>
+</body>
+</html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Photos Robot Suiveur – Christopher Petit</title>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Segoe UI',system-ui,sans-serif;background:#0f172a;color:#f1f5f9;min-height:100vh}
+    a{text-decoration:none;color:inherit}
+    :root{--accent:#2563eb;--border:#1e293b;--r:12px}
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;height:60px;padding:0 2rem;
+      background:rgba(15,23,42,.95);backdrop-filter:blur(12px);
+      border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+    .nav-brand{font-weight:800;color:#60a5fa;font-size:.95rem}
+    .nav-links{display:flex;gap:1.5rem;list-style:none}
+    .nav-links a{font-size:.85rem;font-weight:500;color:#94a3b8;transition:color .2s}
+    .nav-links a:hover,.nav-links a.active{color:#60a5fa;font-weight:700}
+    .nav-toggle{display:none;flex-direction:column;gap:5px;cursor:pointer}
+    .nav-toggle span{display:block;width:22px;height:2px;background:#94a3b8;border-radius:2px}
+    .page-hero{padding:5.5rem 2rem 2rem;background:linear-gradient(135deg,#052e16 0%,#0f172a 100%);border-bottom:1px solid var(--border)}
+    .c{max-width:1100px;margin:0 auto}
+    .back{display:inline-flex;align-items:center;gap:.4rem;font-size:.85rem;color:#60a5fa;font-weight:600;margin-bottom:.8rem}.back:hover{text-decoration:underline}
+    .sl{font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#3b82f6;margin-bottom:.3rem}
+    .pt{font-size:2rem;font-weight:900;color:#f1f5f9;letter-spacing:-.5px}
+    .pt-sub{color:#64748b;margin-top:.4rem;font-size:.95rem}
+    .content{padding:2.5rem 2rem 4rem}
+    .gallery-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem}
+    .gallery-item{background:#1e293b;border-radius:var(--r);overflow:hidden;border:1px solid #334155;cursor:pointer;transition:.25s}
+    .gallery-item:hover{transform:translateY(-4px);border-color:#3b82f6;box-shadow:0 0 0 1px #3b82f6,0 8px 30px rgba(37,99,235,.3)}
+    .gallery-img{width:100%;height:220px;object-fit:cover;display:block;transition:.3s}
+    .gallery-item:hover .gallery-img{transform:scale(1.03)}
+    .gallery-caption{padding:1rem 1.2rem}
+    .caption-title{font-weight:700;font-size:.95rem;color:#f1f5f9;margin-bottom:.25rem}
+    .caption-desc{font-size:.82rem;color:#64748b}
+    .placeholder-card{background:#1e293b;border:2px dashed #334155;border-radius:var(--r);padding:2.5rem 2rem;text-align:center;transition:.2s}
+    .placeholder-card:hover{border-color:#3b82f6}
+    .ph-icon{font-size:2.5rem;margin-bottom:.6rem;opacity:.4}
+    .ph-title{font-weight:700;color:#64748b;font-size:.95rem;margin-bottom:.3rem}
+    .ph-desc{font-size:.8rem;color:#475569}
+    .lightbox{display:none;position:fixed;inset:0;z-index:999;background:rgba(0,0,0,.93);align-items:center;justify-content:center;padding:1rem}
+    .lightbox.open{display:flex}
+    .lb-content{position:relative;max-width:90vw;max-height:90vh;text-align:center}
+    .lb-img{max-width:90vw;max-height:82vh;border-radius:8px;object-fit:contain;box-shadow:0 0 60px rgba(0,0,0,.8)}
+    .lb-close{position:absolute;top:-16px;right:-16px;width:36px;height:36px;background:#334155;border:none;border-radius:50%;color:#f1f5f9;font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.2s;z-index:1000}
+    .lb-close:hover{background:#ef4444}
+    .lb-caption{text-align:center;margin-top:.8rem;font-size:.85rem;color:#94a3b8}
+    .lb-nav{display:flex;gap:1rem;justify-content:center;margin-top:.8rem}
+    .lb-btn{background:#1e293b;border:1px solid #334155;color:#f1f5f9;padding:.4rem 1rem;border-radius:8px;cursor:pointer;font-size:.88rem;transition:.2s}
+    .lb-btn:hover{background:#334155;border-color:#3b82f6}
+    footer{background:#080f1a;color:#475569;text-align:center;padding:1.5rem 2rem;font-size:.8rem}
+    footer span{color:#94a3b8;font-weight:600}
+    .fi{opacity:0;transform:translateY(18px);transition:opacity .6s,transform .6s}.fi.v{opacity:1;transform:none}
+    @media(max-width:600px){.gallery-grid{grid-template-columns:1fr}.nav-links{display:none;flex-direction:column;position:absolute;top:60px;left:0;right:0;background:#0f172a;padding:1rem 2rem;border-bottom:1px solid var(--border);gap:1rem}.nav-links.open{display:flex}.nav-toggle{display:flex}}
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-brand">Christopher Petit</div>
+  <ul class="nav-links" id="nl">
+    <li><a href="index.html">Accueil</a></li>
+    <li><a href="apropos.html">À propos</a></li>
+    <li><a href="experience.html">Expériences</a></li>
+    <li><a href="projets.html" class="active">Projets</a></li>
+    <li><a href="competences.html">Compétences</a></li>
+    <li><a href="interets.html">Intérêts</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="cv.html">CV</a></li>
+  </ul>
+  <div class="nav-toggle" onclick="document.getElementById('nl').classList.toggle('open')"><span></span><span></span><span></span></div>
+</nav>
+
+<div class="page-hero">
+  <div class="c">
+    <a href="projets.html" class="back">← Retour aux projets</a>
+    <p class="sl">Projet académique · 2025</p>
+    <h1 class="pt">Robot Suiveur de Ligne</h1>
+    <p class="pt-sub">Arduino C · ADS1115 · TCS34725 · HC-SR04 · Servomoteur · PWM Timer</p>
+  </div>
+</div>
+
+<section class="content">
+  <div class="c">
+    <div class="gallery-grid">
+
+      <div class="gallery-item fi" onclick="openLb(0)">
+        <img class="gallery-img" src="photos/rapports/suiveur-001.png" alt="Robot suiveur de ligne"/>
+        <div class="gallery-caption">
+          <div class="caption-title">Vue d'ensemble du robot</div>
+          <div class="caption-desc">Servomoteur pour orienter l'ultrason, capteur RGB à l'avant, 4 LDR sous le châssis</div>
+        </div>
+      </div>
+
+      <div class="gallery-item fi" onclick="openLb(1)">
+        <img class="gallery-img" src="photos/rapports/suiveur-020.png" alt="Schéma annoté des composants du robot"/>
+        <div class="gallery-caption">
+          <div class="caption-title">Architecture matérielle annotée</div>
+          <div class="caption-desc">Ultrason + servomoteur, capteur RGB avec contacteur, 4 capteurs de luminosité + LEDs indicatrices</div>
+        </div>
+      </div>
+
+      <div class="gallery-item fi" onclick="openLb(2)">
+        <img class="gallery-img" src="photos/rapports/suiveur-006.png" alt="Algorithme global du parcours en 9 étapes"/>
+        <div class="gallery-caption">
+          <div class="caption-title">Algorithme global de la mission</div>
+          <div class="caption-desc">Suivi de ligne → détection couleur → contournement d'obstacle → suivi de mur → choix de chemin</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="lightbox" id="lb" onclick="if(event.target===this)closeLb()">
+  <div class="lb-content">
+    <button class="lb-close" onclick="closeLb()">✕</button>
+    <img class="lb-img" id="lb-img" src="" alt=""/>
+    <div class="lb-caption" id="lb-cap"></div>
+    <div class="lb-nav">
+      <button class="lb-btn" onclick="moveLb(-1)">← Précédent</button>
+      <button class="lb-btn" onclick="moveLb(1)">Suivant →</button>
+    </div>
+  </div>
+</div>
+
+<footer><p>© 2026 <span>Christopher Petit</span> · Portfolio BUT GEII</p></footer>
+<script>
+  const images=[
+    {src:'photos/rapports/suiveur-001.png',cap:'Vue d\'ensemble du robot'},
+    {src:'photos/rapports/suiveur-020.png',cap:'Architecture matérielle annotée : ultrason, RGB, LDR, LEDs'},
+    {src:'photos/rapports/suiveur-006.png',cap:'Algorithme global de la mission en 9 étapes'},
+  ];
+  let cur=0;
+  function openLb(i){cur=i;document.getElementById('lb-img').src=images[i].src;document.getElementById('lb-cap').textContent=images[i].cap;document.getElementById('lb').classList.add('open')}
+  function closeLb(){document.getElementById('lb').classList.remove('open')}
+  function moveLb(d){cur=(cur+d+images.length)%images.length;openLb(cur)}
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLb();if(e.key==='ArrowRight')moveLb(1);if(e.key==='ArrowLeft')moveLb(-1)});
+  const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('v');obs.unobserve(x.target)}})},{threshold:.1});
+  document.querySelectorAll('.fi').forEach(el=>obs.observe(el));
+</script>
+</body></html>

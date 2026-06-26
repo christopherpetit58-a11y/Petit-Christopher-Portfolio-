@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfolio – Christopher Petit</title>
+  <style>
+    /* ===================== RESET & BASE ===================== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: #f9fafb;
+      color: #1f2937;
+      line-height: 1.6;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+
+    /* ===================== VARIABLES ===================== */
+    :root {
+      --accent: #2563eb;
+      --accent-dark: #1d4ed8;
+      --accent-light: #eff6ff;
+      --surface: #ffffff;
+      --border: #e5e7eb;
+      --text-muted: #6b7280;
+      --radius: 12px;
+      --shadow: 0 1px 3px rgba(0,0,0,.08), 0 4px 16px rgba(0,0,0,.06);
+      --shadow-md: 0 4px 6px rgba(0,0,0,.07), 0 10px 30px rgba(0,0,0,.1);
+    }
+
+    /* ===================== NAV ===================== */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(255,255,255,.9);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-brand {
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--accent);
+      letter-spacing: -.3px;
+    }
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: .875rem;
+      color: var(--text-muted);
+      font-weight: 500;
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+
+    /* hamburger */
+    .nav-toggle { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+    .nav-toggle span { display: block; width: 22px; height: 2px; background: #374151; border-radius: 2px; transition: .3s; }
+
+    /* ===================== SECTIONS LAYOUT ===================== */
+    section { padding: 5rem 2rem; }
+    .container { max-width: 1000px; margin: 0 auto; }
+    .section-label {
+      font-size: .8rem;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: .5rem;
+    }
+    .section-title {
+      font-size: 2rem;
+      font-weight: 800;
+      color: #111827;
+      margin-bottom: 2.5rem;
+      letter-spacing: -.5px;
+    }
+
+    /* ===================== HERO ===================== */
+    #accueil {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      background: linear-gradient(135deg, #f0f4ff 0%, #ffffff 60%);
+      padding-top: 80px;
+    }
+    .hero-inner {
+      display: flex;
+      align-items: center;
+      gap: 4rem;
+      flex-wrap: wrap;
+    }
+    .hero-text { flex: 1; min-width: 280px; }
+    .hero-badge {
+      display: inline-block;
+      background: var(--accent-light);
+      color: var(--accent);
+      font-size: .8rem;
+      font-weight: 600;
+      padding: .35rem .9rem;
+      border-radius: 999px;
+      margin-bottom: 1.2rem;
+      letter-spacing: .04em;
+    }
+    .hero-name {
+      font-size: clamp(2.2rem, 5vw, 3.5rem);
+      font-weight: 900;
+      letter-spacing: -1.5px;
+      line-height: 1.1;
+      color: #111827;
+    }
+    .hero-name span { color: var(--accent); }
+    .hero-tagline {
+      margin-top: .8rem;
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      max-width: 480px;
+    }
+    .hero-cta {
+      display: flex;
+      gap: 1rem;
+      margin-top: 2rem;
+      flex-wrap: wrap;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+      padding: .65rem 1.4rem;
+      border-radius: var(--radius);
+      font-size: .9rem;
+      font-weight: 600;
+      transition: .2s;
+      cursor: pointer;
+      border: none;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+    }
+    .btn-primary:hover { background: var(--accent-dark); transform: translateY(-1px); box-shadow: var(--shadow-md); }
+    .btn-outline {
+      background: transparent;
+      color: var(--accent);
+      border: 2px solid var(--accent);
+    }
+    .btn-outline:hover { background: var(--accent-light); }
+
+    /* Hero photo */
+    .hero-photo-wrap {
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      background: var(--accent-light);
+      border: 4px solid var(--accent);
+      overflow: hidden;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow-md);
+    }
+    .hero-photo-wrap img { width: 100%; height: 100%; object-fit: cover; }
+    .hero-photo-placeholder {
+      font-size: 5rem;
+      color: var(--accent);
+      opacity: .4;
+      user-select: none;
+    }
+
+    /* Hero stats */
+    .hero-stats {
+      display: flex;
+      gap: 2rem;
+      margin-top: 2rem;
+      flex-wrap: wrap;
+    }
+    .stat-item { text-align: center; }
+    .stat-num { font-size: 1.6rem; font-weight: 800; color: var(--accent); }
+    .stat-label { font-size: .75rem; color: var(--text-muted); font-weight: 500; }
+
+    /* ===================== ABOUT ===================== */
+    #apropos { background: var(--surface); }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2.5rem;
+      align-items: start;
+    }
+    .about-text p { color: #374151; margin-bottom: 1rem; }
+    .about-info-list { list-style: none; margin-top: 1.5rem; }
+    .about-info-list li {
+      display: flex;
+      align-items: center;
+      gap: .8rem;
+      padding: .6rem 0;
+      border-bottom: 1px solid var(--border);
+      font-size: .9rem;
+    }
+    .about-info-list li:last-child { border-bottom: none; }
+    .info-icon { font-size: 1.1rem; }
+    .info-label { color: var(--text-muted); font-size: .8rem; }
+    .info-val { font-weight: 600; color: #111827; }
+
+    /* Languages */
+    .lang-card {
+      background: var(--accent-light);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+    }
+    .lang-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 1rem; color: #111827; }
+    .lang-item { margin-bottom: .9rem; }
+    .lang-header { display: flex; justify-content: space-between; font-size: .85rem; font-weight: 600; margin-bottom: .3rem; }
+    .lang-bar { height: 6px; background: #dbeafe; border-radius: 999px; overflow: hidden; }
+    .lang-fill { height: 100%; background: var(--accent); border-radius: 999px; }
+
+    /* ===================== EXPERIENCE ===================== */
+    #experience { background: #f9fafb; }
+    .timeline { position: relative; padding-left: 2rem; }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 7px; top: 0; bottom: 0;
+      width: 2px;
+      background: var(--border);
+    }
+    .timeline-item {
+      position: relative;
+      margin-bottom: 2.5rem;
+    }
+    .timeline-dot {
+      position: absolute;
+      left: -2rem;
+      top: .35rem;
+      width: 14px;
+      height: 14px;
+      background: var(--accent);
+      border: 3px solid white;
+      border-radius: 50%;
+      box-shadow: 0 0 0 2px var(--accent);
+    }
+    .exp-card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+    }
+    .exp-header { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: .5rem; }
+    .exp-title { font-size: 1.05rem; font-weight: 700; color: #111827; }
+    .exp-company { color: var(--accent); font-weight: 600; font-size: .9rem; margin-top: .2rem; }
+    .exp-meta {
+      display: flex;
+      gap: .8rem;
+      flex-wrap: wrap;
+    }
+    .exp-tag {
+      font-size: .78rem;
+      font-weight: 600;
+      padding: .25rem .7rem;
+      border-radius: 999px;
+      background: var(--accent-light);
+      color: var(--accent);
+    }
+    .exp-desc { margin-top: .9rem; color: #374151; font-size: .9rem; }
+    .exp-bullets { margin-top: .7rem; padding-left: 1.2rem; color: #374151; font-size: .9rem; }
+    .exp-bullets li { margin-bottom: .3rem; }
+
+    /* ===================== PROJETS ===================== */
+    #projets { background: var(--surface); }
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+    .project-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      box-shadow: var(--shadow);
+      transition: .25s;
+    }
+    .project-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+    .project-icon { font-size: 2rem; margin-bottom: .8rem; }
+    .project-name { font-size: 1.1rem; font-weight: 700; color: #111827; margin-bottom: .5rem; }
+    .project-desc { font-size: .875rem; color: #374151; margin-bottom: 1rem; }
+    .project-bullets { padding-left: 1.1rem; font-size: .85rem; color: var(--text-muted); margin-bottom: 1rem; }
+    .project-bullets li { margin-bottom: .25rem; }
+    .project-tags { display: flex; flex-wrap: wrap; gap: .4rem; }
+    .tag {
+      font-size: .75rem;
+      font-weight: 600;
+      padding: .2rem .6rem;
+      border-radius: 999px;
+      background: #f3f4f6;
+      color: #374151;
+      border: 1px solid var(--border);
+    }
+    .tag-blue { background: var(--accent-light); color: var(--accent); border-color: #bfdbfe; }
+
+    /* ===================== COMPETENCES ===================== */
+    #competences { background: #f9fafb; }
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.2rem;
+    }
+    .skill-category {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+    .skill-cat-header {
+      background: var(--accent);
+      color: white;
+      padding: .8rem 1.2rem;
+      font-weight: 700;
+      font-size: .9rem;
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+    }
+    .skill-cat-body { padding: 1rem 1.2rem; }
+    .skill-pill {
+      display: inline-block;
+      margin: .25rem .2rem;
+      font-size: .8rem;
+      font-weight: 500;
+      padding: .25rem .7rem;
+      background: #f3f4f6;
+      border-radius: 999px;
+      color: #374151;
+      border: 1px solid var(--border);
+    }
+
+    /* ===================== INTERETS ===================== */
+    #interets { background: var(--surface); }
+    .interests-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1rem;
+    }
+    .interest-card {
+      background: #f9fafb;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem 1rem;
+      text-align: center;
+      transition: .2s;
+    }
+    .interest-card:hover { border-color: var(--accent); background: var(--accent-light); }
+    .interest-icon { font-size: 2.5rem; margin-bottom: .6rem; }
+    .interest-name { font-weight: 700; font-size: .95rem; color: #111827; }
+    .interest-desc { font-size: .8rem; color: var(--text-muted); margin-top: .2rem; }
+
+    /* ===================== CONTACT ===================== */
+    #contact { background: #f9fafb; }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .contact-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      box-shadow: var(--shadow);
+    }
+    .contact-card-icon {
+      width: 44px; height: 44px;
+      background: var(--accent-light);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .contact-card-label { font-size: .75rem; color: var(--text-muted); font-weight: 500; }
+    .contact-card-val { font-weight: 700; font-size: .9rem; color: #111827; word-break: break-all; }
+
+    /* ===================== FOOTER ===================== */
+    footer {
+      background: #111827;
+      color: #9ca3af;
+      text-align: center;
+      padding: 1.5rem 2rem;
+      font-size: .8rem;
+    }
+    footer span { color: white; font-weight: 600; }
+
+    /* ===================== SCROLL ANIMATION ===================== */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity .6s ease, transform .6s ease;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* ===================== RESPONSIVE ===================== */
+    @media (max-width: 768px) {
+      .nav-links { display: none; flex-direction: column; position: absolute; top: 60px; left: 0; right: 0; background: white; padding: 1rem 2rem; border-bottom: 1px solid var(--border); gap: 1rem; }
+      .nav-links.open { display: flex; }
+      .nav-toggle { display: flex; }
+      .about-grid { grid-template-columns: 1fr; }
+      .hero-photo-wrap { width: 160px; height: 160px; }
+      .hero-inner { flex-direction: column-reverse; gap: 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ========== NAV ========== -->
+  <nav>
+    <div class="nav-brand">Christopher Petit</div>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#accueil">Accueil</a></li>
+      <li><a href="#apropos">À propos</a></li>
+      <li><a href="#experience">Expériences</a></li>
+      <li><a href="#projets">Projets</a></li>
+      <li><a href="#competences">Compétences</a></li>
+      <li><a href="#interets">Intérêts</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="nav-toggle" id="navToggle" onclick="toggleNav()">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  <!-- ========== HERO ========== -->
+  <section id="accueil">
+    <div class="container">
+      <div class="hero-inner">
+        <div class="hero-text fade-in">
+          <div class="hero-badge">🎓 Étudiant BUT3 GEII · IUT d'Évry</div>
+          <h1 class="hero-name">
+            Christopher<br><span>Petit</span>
+          </h1>
+          <p class="hero-tagline">
+            Passionné par l'électronique, les systèmes embarqués et l'automatisme industrielle.<br>
+            Disponible en alternance dès septembre 2026.
+          </p>
+          <div class="hero-cta">
+            <a href="#contact" class="btn btn-primary">Me contacter</a>
+            <a href="#experience" class="btn btn-outline">Voir mon parcours</a>
+          </div>
+          <div class="hero-stats">
+            <div class="stat-item">
+              <div class="stat-num">2</div>
+              <div class="stat-label">Stages</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-num">2</div>
+              <div class="stat-label">Projets techniques</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-num">845</div>
+              <div class="stat-label">Score TOEIC</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-num">3</div>
+              <div class="stat-label">Langues</div>
+            </div>
+          </div>
+        </div>
+        <div class="hero-photo-wrap fade-in">
+          <!-- Remplace src par le chemin de ta photo de profil -->
+          <!-- <img src="photo.jpg" alt="Christopher Petit" /> -->
+          <div class="hero-photo-placeholder">👤</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== À PROPOS ========== -->
+  <section id="apropos">
+    <div class="container">
+      <p class="section-label fade-in">Qui suis-je ?</p>
+      <h2 class="section-title fade-in">À propos</h2>
+      <div class="about-grid">
+        <div class="about-text fade-in">
+          <p>
+            Je suis étudiant en 3ème année de BUT Génie Électrique et Informatique Industrielle (GEII),
+            spécialisé en <strong>automatisme et informatique industrielle</strong> à l'IUT d'Évry Val d'Essonne.
+          </p>
+          <p>
+            Mon parcours m'a permis de développer de solides compétences en électronique embarquée,
+            en programmation de systèmes temps réel et en automatisme industriel, confirmées par deux stages en entreprise.
+          </p>
+          <p>
+            Rigoureux, autonome et doté d'un bon esprit d'analyse, je recherche une
+            <strong>alternance de 2 à 3 ans à partir de septembre 2026</strong> dans les domaines de l'électronique,
+            des systèmes embarqués, de l'informatique industrielle ou de l'automatisme.
+          </p>
+          <ul class="about-info-list">
+            <li>
+              <span class="info-icon">📍</span>
+              <div><div class="info-label">Localisation</div><div class="info-val">Juvisy-sur-Orge (91)</div></div>
+            </li>
+            <li>
+              <span class="info-icon">🎓</span>
+              <div><div class="info-label">Formation</div><div class="info-val">BUT3 GEII – IUT d'Évry</div></div>
+            </li>
+            <li>
+              <span class="info-icon">🚗</span>
+              <div><div class="info-label">Permis B</div><div class="info-val">En cours d'obtention</div></div>
+            </li>
+            <li>
+              <span class="info-icon">💼</span>
+              <div><div class="info-label">Disponibilité</div><div class="info-val">Septembre 2026 (alternance 2-3 ans)</div></div>
+            </li>
+            <li>
+              <span class="info-icon">🔗</span>
+              <div><div class="info-label">LinkedIn</div><div class="info-val"><a href="https://linkedin.com/in/christopher-petit-4nb1/" target="_blank" style="color:var(--accent)">linkedin.com/in/christopher-petit-4nb1</a></div></div>
+            </li>
+          </ul>
+        </div>
+        <div class="fade-in">
+          <div class="lang-card">
+            <h3>🌍 Langues</h3>
+            <div class="lang-item">
+              <div class="lang-header"><span>Tamoul</span><span>Langue maternelle</span></div>
+              <div class="lang-bar"><div class="lang-fill" style="width:100%"></div></div>
+            </div>
+            <div class="lang-item">
+              <div class="lang-header"><span>Anglais</span><span>B2 – TOEIC 845/990</span></div>
+              <div class="lang-bar"><div class="lang-fill" style="width:80%"></div></div>
+            </div>
+            <div class="lang-item">
+              <div class="lang-header"><span>Espagnol</span><span>A2</span></div>
+              <div class="lang-bar"><div class="lang-fill" style="width:30%"></div></div>
+            </div>
+          </div>
+
+          <div style="margin-top:1.2rem; background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:1.5rem; box-shadow:var(--shadow);">
+            <h3 style="font-size:1rem; font-weight:700; margin-bottom:1rem;">🎓 Formation</h3>
+            <div style="border-left:3px solid var(--accent); padding-left:1rem; margin-bottom:1rem;">
+              <div style="font-weight:700; font-size:.9rem;">BUT Génie Électrique et Informatique Industrielle</div>
+              <div style="color:var(--text-muted); font-size:.82rem;">IUT d'Évry Val d'Essonne &nbsp;·&nbsp; 2023 – en cours</div>
+              <div style="font-size:.82rem; color:#374151; margin-top:.4rem;">Électronique analogique & numérique · Automatisme · Systèmes embarqués</div>
+            </div>
+            <div style="border-left:3px solid #d1d5db; padding-left:1rem;">
+              <div style="font-weight:700; font-size:.9rem;">Bac Technologique STI2D – Spécialité SIN</div>
+              <div style="color:var(--text-muted); font-size:.82rem;">Lycée Clément Ader, Athis-Mons &nbsp;·&nbsp; 2023</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== EXPÉRIENCES ========== -->
+  <section id="experience">
+    <div class="container">
+      <p class="section-label fade-in">Mon parcours</p>
+      <h2 class="section-title fade-in">Expériences professionnelles</h2>
+      <div class="timeline">
+
+        <div class="timeline-item fade-in">
+          <div class="timeline-dot"></div>
+          <div class="exp-card">
+            <div class="exp-header">
+              <div>
+                <div class="exp-title">Technicien de maintenance</div>
+                <div class="exp-company">Scientec – Les Ulis (91)</div>
+              </div>
+              <div class="exp-meta">
+                <span class="exp-tag">Mars – Juin 2026</span>
+                <span class="exp-tag">14 semaines</span>
+                <span class="exp-tag">Stage</span>
+              </div>
+            </div>
+            <p class="exp-desc">
+              Stage chez Scientec, spécialiste de l'instrumentation scientifique et optique.
+              Travail en autonomie sur les opérations de SAV et de métrologie.
+            </p>
+            <ul class="exp-bullets">
+              <li>Diagnostic et réparation d'appareils d'optique et d'instrumentation</li>
+              <li>Rédaction des rapports de tests et certificats d'étalonnage</li>
+              <li>Assistance téléphonique aux clients</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="timeline-item fade-in">
+          <div class="timeline-dot"></div>
+          <div class="exp-card">
+            <div class="exp-header">
+              <div>
+                <div class="exp-title">Technicien de maintenance</div>
+                <div class="exp-company">WITT France SARL – Morsang-sur-Orge (91)</div>
+              </div>
+              <div class="exp-meta">
+                <span class="exp-tag">Janv. – Mars 2025</span>
+                <span class="exp-tag">10 semaines</span>
+                <span class="exp-tag">Stage</span>
+              </div>
+            </div>
+            <p class="exp-desc">
+              Stage dans le service SAV de WITT France, fabricant d'appareils de mesure et de contrôle de gaz industriels.
+              Grande autonomie dès la prise de poste.
+            </p>
+            <ul class="exp-bullets">
+              <li>Diagnostic et réparation d'appareils de mesure de gaz</li>
+              <li>Rédaction des rapports de tests et certificats d'étalonnage</li>
+              <li>Création et suivi des devis, commandes et bons de livraison</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== PROJETS ========== -->
+  <section id="projets">
+    <div class="container">
+      <p class="section-label fade-in">Ce que j'ai réalisé</p>
+      <h2 class="section-title fade-in">Mes projets</h2>
+      <div class="projects-grid">
+
+        <div class="project-card fade-in">
+          <div class="project-icon">🤖</div>
+          <div class="project-name">Robot Sumo</div>
+          <p class="project-desc">Conception complète d'un robot autonome de compétition Sumo, de l'électronique à la programmation embarquée.</p>
+          <ul class="project-bullets">
+            <li>Conception et dimensionnement d'un pont en H pour moteurs DC</li>
+            <li>Programmation embarquée Arduino (C/C++)</li>
+            <li>Intégration de capteurs lumière et télémètre</li>
+            <li>Tests, validation et optimisation des performances</li>
+          </ul>
+          <div class="project-tags">
+            <span class="tag tag-blue">Arduino</span>
+            <span class="tag tag-blue">C/C++</span>
+            <span class="tag">Électronique</span>
+            <span class="tag">PCB</span>
+          </div>
+        </div>
+
+        <div class="project-card fade-in">
+          <div class="project-icon">🏭</div>
+          <div class="project-name">Pilotage d'un Monte-charge</div>
+          <p class="project-desc">Automatisation d'un monte-charge industriel sur automate Siemens avec gestion complète de la sécurité et des cycles.</p>
+          <ul class="project-bullets">
+            <li>Programmation Grafcet / Ladder sur TIA Portal (Siemens)</li>
+            <li>Gestion des capteurs, commandes moteur et sécurités</li>
+            <li>Tests et validation du cycle de fonctionnement complet</li>
+          </ul>
+          <div class="project-tags">
+            <span class="tag tag-blue">TIA Portal</span>
+            <span class="tag tag-blue">Grafcet</span>
+            <span class="tag">Ladder</span>
+            <span class="tag">Siemens</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== COMPÉTENCES ========== -->
+  <section id="competences">
+    <div class="container">
+      <p class="section-label fade-in">Mon expertise</p>
+      <h2 class="section-title fade-in">Compétences</h2>
+      <div class="skills-grid">
+
+        <div class="skill-category fade-in">
+          <div class="skill-cat-header">⚡ Électronique</div>
+          <div class="skill-cat-body">
+            <span class="skill-pill">Soudure</span>
+            <span class="skill-pill">Câblage</span>
+            <span class="skill-pill">Conception PCB</span>
+            <span class="skill-pill">KiCad</span>
+            <span class="skill-pill">Schémas électriques</span>
+          </div>
+        </div>
+
+        <div class="skill-category fade-in">
+          <div class="skill-cat-header">💻 Programmation</div>
+          <div class="skill-cat-body">
+            <span class="skill-pill">C / C++</span>
+            <span class="skill-pill">VHDL</span>
+            <span class="skill-pill">HTML / CSS</span>
+            <span class="skill-pill">Python</span>
+            <span class="skill-pill">SQL</span>
+          </div>
+        </div>
+
+        <div class="skill-category fade-in">
+          <div class="skill-cat-header">🔧 Logiciels & Outils</div>
+          <div class="skill-cat-body">
+            <span class="skill-pill">WaveSoft</span>
+            <span class="skill-pill">Psim</span>
+            <span class="skill-pill">ISE Design Suite</span>
+            <span class="skill-pill">Atmel Studio</span>
+            <span class="skill-pill">Arduino IDE</span>
+            <span class="skill-pill">KiCad</span>
+          </div>
+        </div>
+
+        <div class="skill-category fade-in">
+          <div class="skill-cat-header">🏭 Automatisme</div>
+          <div class="skill-cat-body">
+            <span class="skill-pill">TIA Portal</span>
+            <span class="skill-pill">Grafcet</span>
+            <span class="skill-pill">Ladder</span>
+            <span class="skill-pill">EcoStruxure Machine Expert Basic</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== CENTRES D'INTÉRÊT ========== -->
+  <section id="interets">
+    <div class="container">
+      <p class="section-label fade-in">En dehors du travail</p>
+      <h2 class="section-title fade-in">Centres d'intérêt</h2>
+      <div class="interests-grid">
+        <div class="interest-card fade-in">
+          <div class="interest-icon">🏸</div>
+          <div class="interest-name">Badminton</div>
+          <div class="interest-desc">Sport régulier</div>
+        </div>
+        <div class="interest-card fade-in">
+          <div class="interest-icon">🏀</div>
+          <div class="interest-name">Basket-ball</div>
+          <div class="interest-desc">Esprit d'équipe</div>
+        </div>
+        <div class="interest-card fade-in">
+          <div class="interest-icon">📚</div>
+          <div class="interest-name">Manga</div>
+          <div class="interest-desc">Lecture & culture</div>
+        </div>
+        <div class="interest-card fade-in">
+          <div class="interest-icon">♟️</div>
+          <div class="interest-name">Échecs</div>
+          <div class="interest-desc">Stratégie & logique</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== CONTACT ========== -->
+  <section id="contact">
+    <div class="container">
+      <p class="section-label fade-in">Prenons contact</p>
+      <h2 class="section-title fade-in">Contact</h2>
+      <div class="contact-grid">
+        <div class="contact-card fade-in">
+          <div class="contact-card-icon">📞</div>
+          <div>
+            <div class="contact-card-label">Téléphone</div>
+            <div class="contact-card-val">07 55 43 61 35</div>
+          </div>
+        </div>
+        <div class="contact-card fade-in">
+          <div class="contact-card-icon">✉️</div>
+          <div>
+            <div class="contact-card-label">E-mail</div>
+            <div class="contact-card-val"><a href="mailto:christopher.petit54@gmail.com" style="color:var(--accent)">christopher.petit54@gmail.com</a></div>
+          </div>
+        </div>
+        <div class="contact-card fade-in">
+          <div class="contact-card-icon">🔗</div>
+          <div>
+            <div class="contact-card-label">LinkedIn</div>
+            <div class="contact-card-val"><a href="https://linkedin.com/in/christopher-petit-4nb1/" target="_blank" style="color:var(--accent)">christopher-petit-4nb1</a></div>
+          </div>
+        </div>
+        <div class="contact-card fade-in">
+          <div class="contact-card-icon">📍</div>
+          <div>
+            <div class="contact-card-label">Localisation</div>
+            <div class="contact-card-val">Juvisy-sur-Orge (91)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer>
+    <p>© 2026 <span>Christopher Petit</span> · Portfolio BUT GEII</p>
+  </footer>
+
+  <!-- ========== SCRIPTS ========== -->
+  <script>
+    // Navigation mobile
+    function toggleNav() {
+      document.getElementById('navLinks').classList.toggle('open');
+    }
+
+    // Fermer le menu en cliquant un lien
+    document.querySelectorAll('.nav-links a').forEach(a => {
+      a.addEventListener('click', () => {
+        document.getElementById('navLinks').classList.remove('open');
+      });
+    });
+
+    // Scroll animations
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    // Highlight nav link actif
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-links a');
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(s => {
+        if (window.scrollY >= s.offsetTop - 80) current = s.id;
+      });
+      navLinks.forEach(a => {
+        a.style.color = a.getAttribute('href') === '#' + current ? 'var(--accent)' : '';
+        a.style.fontWeight = a.getAttribute('href') === '#' + current ? '700' : '';
+      });
+    });
+  </script>
+</body>
+</html>

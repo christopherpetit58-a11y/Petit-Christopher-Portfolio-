@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Centres d'intérêt – Christopher Petit</title>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
+    body{font-family:'Segoe UI',system-ui,sans-serif;background:#f9fafb;color:#1f2937;line-height:1.6}
+    a{text-decoration:none;color:inherit}
+    :root{--accent:#2563eb;--accent-dark:#1d4ed8;--accent-light:#eff6ff;--surface:#fff;--border:#e5e7eb;--muted:#6b7280;--r:14px;--sh:0 1px 3px rgba(0,0,0,.08),0 4px 16px rgba(0,0,0,.06);--sh2:0 4px 6px rgba(0,0,0,.07),0 10px 30px rgba(0,0,0,.10)}
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;height:60px;padding:0 2rem;background:rgba(255,255,255,.93);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+    .nav-brand{font-weight:800;color:var(--accent);font-size:.95rem}
+    .nav-links{display:flex;gap:1.5rem;list-style:none}
+    .nav-links a{font-size:.85rem;font-weight:500;color:var(--muted);transition:color .2s}
+    .nav-links a:hover,.nav-links a.active{color:var(--accent);font-weight:700}
+    .nav-toggle{display:none;flex-direction:column;gap:5px;cursor:pointer}
+    .nav-toggle span{display:block;width:22px;height:2px;background:#374151;border-radius:2px}
+    .page-hero{padding:5.5rem 2rem 2.5rem;background:linear-gradient(135deg,#eef2ff 0%,#fff 100%);border-bottom:1px solid var(--border)}
+    .c{max-width:1000px;margin:0 auto}
+    .back{display:inline-flex;align-items:center;gap:.4rem;font-size:.85rem;color:var(--accent);font-weight:600;margin-bottom:1rem}.back:hover{text-decoration:underline}
+    .sl{font-size:.78rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:.3rem}
+    .pt{font-size:2.2rem;font-weight:900;color:#111827;letter-spacing:-.5px}
+    .content{padding:3rem 2rem}
+    .interests-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.4rem}
+    .int-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;box-shadow:var(--sh);transition:.25s;text-align:center}
+    .int-card:hover{transform:translateY(-4px);box-shadow:var(--sh2)}
+    .int-banner{height:130px;display:flex;align-items:center;justify-content:center}
+    .int-banner svg{width:70px;height:70px;fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:2}
+    .int-banner.badminton{background:linear-gradient(135deg,#dbeafe,#eff6ff)}
+    .int-banner.basket{background:linear-gradient(135deg,#ffedd5,#fff7ed)}
+    .int-banner.manga{background:linear-gradient(135deg,#fce7f3,#fdf2f8)}
+    .int-banner.echecs{background:linear-gradient(135deg,#f0fdf4,#dcfce7)}
+    .int-body{padding:1.2rem}
+    .int-name{font-size:1.1rem;font-weight:800;color:#111827;margin-bottom:.3rem}
+    .int-tag{display:inline-block;font-size:.75rem;font-weight:600;padding:.2rem .65rem;border-radius:999px;background:var(--accent-light);color:var(--accent);border:1px solid #bfdbfe;margin-bottom:.6rem}
+    .int-desc{font-size:.88rem;color:var(--muted)}
+    .page-nav{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;margin-top:3rem;padding-top:2rem;border-top:1px solid var(--border)}
+    .btn{display:inline-flex;align-items:center;gap:.4rem;padding:.65rem 1.4rem;border-radius:var(--r);font-size:.9rem;font-weight:600;transition:.2s;cursor:pointer;border:none}
+    .btn-p{background:var(--accent);color:#fff}.btn-p:hover{background:var(--accent-dark);transform:translateY(-1px)}
+    .btn-o{background:transparent;color:var(--accent);border:2px solid var(--accent)}.btn-o:hover{background:var(--accent-light)}
+    footer{background:#111827;color:#9ca3af;text-align:center;padding:1.5rem 2rem;font-size:.8rem}
+    footer span{color:#fff;font-weight:600}
+    .fi{opacity:0;transform:translateY(18px);transition:opacity .6s,transform .6s}.fi.v{opacity:1;transform:none}
+    @media(max-width:600px){.nav-links{display:none;flex-direction:column;position:absolute;top:60px;left:0;right:0;background:#fff;padding:1rem 2rem;border-bottom:1px solid var(--border);gap:1rem}.nav-links.open{display:flex}.nav-toggle{display:flex}}
+  </style>
+</head>
+<body>
+<nav>
+  <div class="nav-brand">Christopher Petit</div>
+  <ul class="nav-links" id="nl">
+    <li><a href="index.html">Accueil</a></li>
+    <li><a href="apropos.html">À propos</a></li>
+    <li><a href="experience.html">Expériences</a></li>
+    <li><a href="projets.html">Projets</a></li>
+    <li><a href="competences.html">Compétences</a></li>
+    <li><a href="interets.html" class="active">Intérêts</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="cv.html">CV</a></li>
+  </ul>
+  <div class="nav-toggle" onclick="document.getElementById('nl').classList.toggle('open')"><span></span><span></span><span></span></div>
+</nav>
+<div class="page-hero">
+  <div class="c">
+    <a href="index.html" class="back">← Retour à l'accueil</a>
+    <p class="sl">En dehors du travail</p>
+    <h1 class="pt">Centres d'intérêt</h1>
+  </div>
+</div>
+<section class="content">
+  <div class="c">
+    <div class="interests-grid">
+      <div class="int-card fi">
+        <div class="int-banner badminton">
+          <svg viewBox="0 0 80 80" stroke="#1d4ed8">
+            <ellipse cx="40" cy="29" rx="20" ry="23" stroke-width="2.5"/>
+            <line x1="28" y1="8" x2="28" y2="50" stroke-width="1.1"/><line x1="34" y1="6" x2="34" y2="52" stroke-width="1.1"/>
+            <line x1="40" y1="6" x2="40" y2="52" stroke-width="1.1"/><line x1="46" y1="6" x2="46" y2="52" stroke-width="1.1"/>
+            <line x1="52" y1="8" x2="52" y2="50" stroke-width="1.1"/>
+            <line x1="21" y1="20" x2="59" y2="20" stroke-width="1.1"/><line x1="20" y1="29" x2="60" y2="29" stroke-width="1.1"/>
+            <line x1="21" y1="38" x2="59" y2="38" stroke-width="1.1"/><line x1="25" y1="46" x2="55" y2="46" stroke-width="1.1"/>
+            <rect x="36" y="52" width="8" height="22" rx="4" stroke-width="2.5"/>
+          </svg>
+        </div>
+        <div class="int-body">
+          <div class="int-name">Badminton</div>
+          <div class="int-tag">Sport régulier</div>
+          <p class="int-desc">Je joue au badminton depuis quelques années. C'est un sport qui demande de la réactivité et une lecture rapide du jeu, deux aspects que j'aime particulièrement travailler.</p>
+        </div>
+      </div>
+      <div class="int-card fi">
+        <div class="int-banner basket">
+          <svg viewBox="0 0 80 80" stroke="#ea580c" stroke-width="2.5">
+            <circle cx="40" cy="40" r="30"/>
+            <path d="M10 40 Q40 24 70 40"/>
+            <path d="M10 40 Q40 56 70 40"/>
+            <line x1="40" y1="10" x2="40" y2="70"/>
+          </svg>
+        </div>
+        <div class="int-body">
+          <div class="int-name">Basket-ball</div>
+          <div class="int-tag">Esprit d'équipe</div>
+          <p class="int-desc">Plusieurs années de basket en club. Ce qui me plaisait surtout, c'est la dimension collective : chaque joueur a son rôle, et une erreur peut coûter cher à toute l'équipe.</p>
+        </div>
+      </div>
+      <div class="int-card fi">
+        <div class="int-banner manga">
+          <svg viewBox="0 0 80 80" stroke="#be185d" stroke-width="2.5">
+            <path d="M40 14 Q27 12 12 16 L12 66 Q27 62 40 64"/>
+            <path d="M40 14 Q53 12 68 16 L68 66 Q53 62 40 64"/>
+            <line x1="40" y1="14" x2="40" y2="64"/>
+            <line x1="17" y1="27" x2="37" y2="25" stroke-width="1.5"/><line x1="17" y1="35" x2="37" y2="33" stroke-width="1.5"/>
+            <line x1="17" y1="43" x2="37" y2="41" stroke-width="1.5"/><line x1="17" y1="51" x2="37" y2="49" stroke-width="1.5"/>
+            <line x1="43" y1="25" x2="63" y2="27" stroke-width="1.5"/><line x1="43" y1="33" x2="63" y2="35" stroke-width="1.5"/>
+            <line x1="43" y1="41" x2="63" y2="43" stroke-width="1.5"/><line x1="43" y1="49" x2="63" y2="51" stroke-width="1.5"/>
+          </svg>
+        </div>
+        <div class="int-body">
+          <div class="int-name">Manga</div>
+          <div class="int-tag">Lecture & culture</div>
+          <p class="int-desc">Je lis des mangas depuis l'adolescence, surtout des shonen. Quand je commence une série, j'ai du mal à décrocher.</p>
+        </div>
+      </div>
+      <div class="int-card fi">
+        <div class="int-banner echecs">
+          <svg viewBox="0 0 80 80" stroke="#15803d" stroke-width="2.5">
+            <line x1="40" y1="8" x2="40" y2="20"/>
+            <line x1="34" y1="14" x2="46" y2="14"/>
+            <circle cx="40" cy="27" r="7"/>
+            <path d="M24 68 L27 38 Q40 30 53 38 L56 68"/>
+            <rect x="18" y="68" width="44" height="8" rx="3"/>
+          </svg>
+        </div>
+        <div class="int-body">
+          <div class="int-name">Échecs</div>
+          <div class="int-tag">Stratégie & logique</div>
+          <p class="int-desc">Je joue aux échecs depuis quelques années, surtout en ligne. C'est un jeu qui force à anticiper et à voir plusieurs coups à l'avance avant de bouger.</p>
+        </div>
+      </div>
+    </div>
+    <div class="page-nav fi">
+      <a href="competences.html" class="btn btn-o">← Compétences</a>
+      <a href="contact.html" class="btn btn-p">Me contacter →</a>
+    </div>
+  </div>
+</section>
+<footer><p>© 2026 <span>Christopher Petit</span> · Portfolio BUT GEII</p></footer>
+<script>const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('v');obs.unobserve(x.target)}})},{threshold:.08});document.querySelectorAll('.fi').forEach(el=>obs.observe(el));</script>
+</body></html>

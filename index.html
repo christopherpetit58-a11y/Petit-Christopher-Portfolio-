@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Christopher Petit – Portfolio</title>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:'Segoe UI',system-ui,sans-serif;background:#f9fafb;color:#1f2937;line-height:1.6}
+    a{text-decoration:none;color:inherit}
+    :root{
+      --accent:#2563eb;--accent-dark:#1d4ed8;--accent-light:#eff6ff;
+      --surface:#fff;--border:#e5e7eb;--muted:#6b7280;
+      --r:14px;--sh:0 1px 3px rgba(0,0,0,.08),0 4px 16px rgba(0,0,0,.06);
+      --sh2:0 4px 6px rgba(0,0,0,.07),0 10px 30px rgba(0,0,0,.10)
+    }
+    /* NAV */
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;height:60px;padding:0 2rem;
+      background:rgba(255,255,255,.93);backdrop-filter:blur(12px);
+      border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+    .nav-brand{font-weight:800;color:var(--accent);font-size:.95rem;letter-spacing:-.3px}
+    .nav-links{display:flex;gap:1.5rem;list-style:none}
+    .nav-links a{font-size:.85rem;font-weight:500;color:var(--muted);transition:color .2s}
+    .nav-links a:hover,.nav-links a.active{color:var(--accent);font-weight:700}
+    .nav-toggle{display:none;flex-direction:column;gap:5px;cursor:pointer}
+    .nav-toggle span{display:block;width:22px;height:2px;background:#374151;border-radius:2px}
+    /* HERO */
+    .hero{min-height:100vh;padding-top:60px;display:flex;align-items:center;
+      background:linear-gradient(135deg,#eef2ff 0%,#fff 55%,#f0f9ff 100%)}
+    .hero-inner{max-width:1000px;margin:0 auto;padding:4rem 2rem;
+      display:flex;align-items:center;gap:4rem;flex-wrap:wrap}
+    .hero-text{flex:1;min-width:260px}
+    .badge{display:inline-flex;align-items:center;gap:.4rem;background:var(--accent-light);
+      color:var(--accent);font-size:.78rem;font-weight:700;padding:.35rem 1rem;
+      border-radius:999px;margin-bottom:1.2rem;letter-spacing:.04em}
+    h1.hero-name{font-size:clamp(2.4rem,5vw,3.8rem);font-weight:900;
+      letter-spacing:-1.5px;line-height:1.05;color:#111827}
+    h1.hero-name span{color:var(--accent)}
+    .hero-sub{margin-top:.9rem;font-size:1.05rem;color:var(--muted);max-width:460px}
+    .hero-chips{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.4rem}
+    .chip{font-size:.78rem;font-weight:600;padding:.3rem .85rem;border-radius:999px;
+      background:#f3f4f6;color:#374151;border:1px solid var(--border)}
+    .chip-b{background:var(--accent-light);color:var(--accent);border-color:#bfdbfe}
+    .hero-cta{display:flex;gap:.8rem;margin-top:2rem;flex-wrap:wrap}
+    .btn{display:inline-flex;align-items:center;gap:.4rem;padding:.65rem 1.4rem;
+      border-radius:var(--r);font-size:.9rem;font-weight:600;transition:.2s;cursor:pointer;border:none}
+    .btn-p{background:var(--accent);color:#fff}
+    .btn-p:hover{background:var(--accent-dark);transform:translateY(-1px);box-shadow:var(--sh2)}
+    .btn-o{background:transparent;color:var(--accent);border:2px solid var(--accent)}
+    .btn-o:hover{background:var(--accent-light)}
+    .avatar{width:210px;height:210px;border-radius:50%;flex-shrink:0;
+      background:var(--accent-light);border:4px solid var(--accent);
+      display:flex;align-items:center;justify-content:center;
+      overflow:hidden;box-shadow:var(--sh2)}
+    .avatar img{width:115%;height:115%;object-fit:cover;transform:translate(5%, -5%)}
+    .avatar-ph{font-size:5rem;color:var(--accent);opacity:.3}
+    .stats-bar{display:flex;gap:2.5rem;margin-top:2rem;flex-wrap:wrap}
+    .stat-n{font-size:1.8rem;font-weight:900;color:var(--accent);line-height:1}
+    .stat-l{font-size:.72rem;color:var(--muted);font-weight:600;letter-spacing:.04em;text-transform:uppercase}
+    /* SECTION CARDS */
+    .sec-cards{background:var(--surface);padding:4rem 2rem}
+    .c{max-width:1000px;margin:0 auto}
+    .sl{font-size:.78rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:.4rem}
+    .st{font-size:1.9rem;font-weight:800;color:#111827;margin-bottom:2rem;letter-spacing:-.5px}
+    .cards-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem}
+    .nav-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);
+      padding:1.6rem 1.4rem;box-shadow:var(--sh);display:block;transition:.25s;
+      position:relative;overflow:hidden}
+    .nav-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;
+      background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform .3s}
+    .nav-card:hover{transform:translateY(-4px);box-shadow:var(--sh2);border-color:#bfdbfe}
+    .nav-card:hover::before{transform:scaleX(1)}
+    .ci{width:46px;height:46px;margin-bottom:.8rem;display:flex;align-items:center;justify-content:center;background:var(--accent-light);border-radius:12px}
+    .ci svg{width:24px;height:24px;fill:none;stroke:var(--accent);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+    .ct{font-size:1.05rem;font-weight:800;color:#111827;margin-bottom:.4rem}
+    .cd{font-size:.85rem;color:var(--muted);line-height:1.5}
+    .ca{display:inline-flex;align-items:center;gap:.3rem;margin-top:.9rem;
+      font-size:.82rem;font-weight:700;color:var(--accent)}
+    /* FOOTER */
+    footer{background:#111827;color:#9ca3af;text-align:center;padding:1.5rem 2rem;font-size:.8rem}
+    footer span{color:#fff;font-weight:600}
+    /* ANIM */
+    .fi{opacity:0;transform:translateY(18px);transition:opacity .6s,transform .6s}
+    .fi.v{opacity:1;transform:none}
+    /* RESPONSIVE */
+    @media(max-width:900px){.cards-grid{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:600px){
+      .cards-grid{grid-template-columns:1fr}
+      .nav-links{display:none;flex-direction:column;position:absolute;top:60px;left:0;right:0;
+        background:#fff;padding:1rem 2rem;border-bottom:1px solid var(--border);gap:1rem}
+      .nav-links.open{display:flex}
+      .nav-toggle{display:flex}
+      .hero-inner{flex-direction:column-reverse;gap:2rem}
+      .avatar{width:150px;height:150px}
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-brand">Christopher Petit</div>
+  <ul class="nav-links" id="nl">
+    <li><a href="index.html" class="active">Accueil</a></li>
+    <li><a href="apropos.html">À propos</a></li>
+    <li><a href="experience.html">Expériences</a></li>
+    <li><a href="projets.html">Projets</a></li>
+    <li><a href="competences.html">Compétences</a></li>
+    <li><a href="interets.html">Intérêts</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="cv.html">CV</a></li>
+  </ul>
+  <div class="nav-toggle" onclick="document.getElementById('nl').classList.toggle('open')">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-text fi">
+      <div class="badge">🎓 BUT3 GEII · IUT d'Évry Val d'Essonne</div>
+      <h1 class="hero-name">Christopher<br><span>Petit</span></h1>
+      <p class="hero-sub">Étudiant en BUT3 GEII à l'IUT d'Évry, l'électronique et les systèmes embarqués c'est ce qui m'a vraiment accroché depuis le départ. Deux stages en SAV (chez Scientec sur des instruments d'optique, chez Witt France sur des analyseurs de gaz) m'ont confirmé que c'est le terrain qui m'intéresse. Je cherche une <strong>alternance de 2 à 3 ans</strong> dès septembre 2026, dans l'électronique, l'embarqué ou l'automatisme.</p>
+      <div class="hero-chips">
+        <span class="chip chip-b">Électronique</span>
+        <span class="chip chip-b">Systèmes embarqués</span>
+        <span class="chip chip-b">Automatisme</span>
+        <span class="chip">C/C++ · Arduino · Python</span>
+        <span class="chip">KiCad · TIA Portal</span>
+        <span class="chip">2 stages SAV</span>
+        <span class="chip">TOEIC 845/990</span>
+      </div>
+      <div class="hero-cta">
+        <a href="contact.html" class="btn btn-p">✉️ Me contacter</a>
+        <a href="experience.html" class="btn btn-o">Voir mon parcours →</a>
+      </div>
+    </div>
+    <div class="avatar fi">
+      <img src="photos/christopher_photo.jpg" alt="Christopher Petit"/>
+    </div>
+  </div>
+</section>
+
+<!-- NAV CARDS -->
+<section class="sec-cards">
+  <div class="c">
+    <p class="sl fi">Explorer le portfolio</p>
+    <h2 class="st fi">Que souhaitez-vous découvrir ?</h2>
+    <div class="cards-grid">
+
+      <a href="apropos.html" class="nav-card fi">
+        <div class="ci"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg></div>
+        <div class="ct">À propos</div>
+        <div class="cd">Mon profil, ma formation, mes langues et mes soft skills.</div>
+        <div class="ca">Découvrir →</div>
+      </a>
+
+      <a href="experience.html" class="nav-card fi">
+        <div class="ci"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg></div>
+        <div class="ct">Expériences professionnelles</div>
+        <div class="cd">Deux stages en SAV : 10 semaines chez Witt France sur les analyseurs de gaz, 14 semaines chez Scientec en optique et instrumentation.</div>
+        <div class="ca">Voir les expériences →</div>
+      </a>
+
+      <a href="projets.html" class="nav-card fi">
+        <div class="ci"><svg viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div>
+        <div class="ct">Mes projets</div>
+        <div class="cd">Robot Sumo, Robot Suiveur de Ligne (Arduino, C/C++) et pilotage d'un monte-charge (TIA Portal, Grafcet).</div>
+        <div class="ca">Voir les projets →</div>
+      </a>
+
+      <a href="competences.html" class="nav-card fi">
+        <div class="ci"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+        <div class="ct">Compétences</div>
+        <div class="cd">Électronique, programmation (C/C++, Python, VHDL), automatisme et logiciels métier.</div>
+        <div class="ca">Voir les compétences →</div>
+      </a>
+
+      <a href="interets.html" class="nav-card fi">
+        <div class="ci"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+        <div class="ct">Centres d'intérêt</div>
+        <div class="cd">Badminton, basket, manga et quelques parties d'échecs, ce qui me définit en dehors du boulot.</div>
+        <div class="ca">Découvrir →</div>
+      </a>
+
+      <a href="contact.html" class="nav-card fi">
+        <div class="ci"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+        <div class="ct">Contact</div>
+        <div class="cd">Téléphone, e-mail ou LinkedIn, je réponds assez vite.</div>
+        <div class="ca">Me contacter →</div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<footer><p>© 2026 <span>Christopher Petit</span> · Portfolio BUT GEII</p></footer>
+
+<script>
+  const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('v');obs.unobserve(x.target)}})},{threshold:.1});
+  document.querySelectorAll('.fi').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
